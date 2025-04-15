@@ -195,11 +195,26 @@
 
     <button class="charter" id="signupButton" disabled>Sign Up</button>
 
-    <a href="loginScreen.html" class="form-group">
+    <a href="LogIn.html" class="form-group">
       <button class="charter" id="redirectButton">
         I already have an account
       </button>
     </a>
+
+    <script type="module">
+        import { Client, Account } from "https://esm.sh/appwrite";
+      
+        const client = new Client()
+          .setEndpoint("https://cloud.appwrite.io/v1")
+          .setProject("67fab4540027acd187eb");
+      
+        const account = new Account(client);
+      
+        //sign the user up
+        account.create('unique()', 'user@example.com', 'password123')
+          .then(console.log)
+          .catch(console.error);
+    </script>
 
   </body>
 </html>
