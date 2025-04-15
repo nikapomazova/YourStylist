@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Test</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore-compat.js"></script>
+
+    <style>
+
+        h1 {
+            color:#B15A63;
+            text-align: center;
+            position: static;
+            top: 2vh;
+            font-size:15vh;
+            margin: 5vh 0 3vh 0;
+        }
+
+        h2 {
+            color:#B15A63;
+            position: static;
+            top: 25vh;
+            left: 5%;
+            font-size:9vh;
+        }
+
+        body {
+            background-color: #f7e0e2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+        }
+
+        .done-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            position: static;
+            top: 190vh;
+            margin-bottom: 20vh;
+        }
+
+        .done-button img {
+            width: 20vw; 
+            height: auto;
+            max-width: 345px; 
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .done-button:hover img {
+            transform: scale(1.1);
+        }
+
+        .question {
+            margin-bottom: 20vh;
+            width: 100%;
+        }
+
+        .question h2 {
+            position: static;
+            font-size: 5vh;
+            margin-bottom: 5vh;
+        }
+
+        .answers {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+
+        .answers button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+        }
+
+        .answers img {
+            width: 20vw; 
+            height: auto;
+            max-width: 345px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .answers button:hover img {
+            transform: scale(1.1);
+        }
+
+        .charter {
+            font-family: "Charter", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 800;
+            font-style: normal; 
+        }
+
+    </style>
+  </head>
+
+  <body>
+
+    <h1 class="charter">Test</h1>
+
+    <div id="quiz-container"></div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is 2 + 2?",
+                answers: [{text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"}
+                ]
+                
+            },
+            {
+                question: "What is the capital of France?",
+                answers: [{text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"}
+                ]
+            },
+            {
+                question: "Which planet is known as the Red Planet?",
+                answers: [{text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"}
+                ]
+            },
+            {
+                question: "What is the boiling point of water?",
+                answers: [{text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"},
+                {text: "answer1", image: "answerSampleButton.png"}
+                ]
+            }
+        ];
+
+        const container = document.getElementById("quiz-container");
+
+        quizData.forEach((item, index) => {
+            const questionDiv = document.createElement("div");
+            questionDiv.classList.add("question");
+
+            const h2 = document.createElement("h2");
+            h2.textContent = `Question ${index + 1}: ${item.question}`;
+            questionDiv.appendChild(h2);
+
+            const answersDiv = document.createElement("div");
+            answersDiv.classList.add("answers");
+
+            item.answers.forEach(answer => {
+                const btn = document.createElement("button");
+                const img = document.createElement("img");
+                img.src = answer.image;
+                img.alt = answer.text;
+
+                btn.appendChild(img);
+                answersDiv.appendChild(btn);
+            });
+
+            questionDiv.appendChild(answersDiv);
+            container.appendChild(questionDiv);
+        });
+    </script>
+
+    <button class = "done-button" id = "doneButton">
+        <img src="doneButton.png" alt="Done Button"/>
+    </button>
+
+    <script type="module">
+
+        localStorage.setItem("email", "nika");
+    
+        async function logResults() {
+            try {
+                const email = localStorage.getItem("email");
+                if (!email) {
+                    alert("Error: No user is logged in.");
+                    return;
+                }
+                localStorage.setItem("answers", ("" + answer1 + ", " + answer2 + ", " + answer3)); //add thhe amount of answers needed
+                alert("Answers saved successfully!"); //DELETE LATER
+            } catch (error) {
+                console.log("Error saving results: " + error);
+                alert("Something went wrong while saving the results.");
+            }
+        }
+
+        document.getElementById("doneButton").addEventListener("click", logResults);
+    
+    </script>
+
+  </body>
+
+</html>

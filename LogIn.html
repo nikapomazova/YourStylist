@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Log In</title>
+
+    <script type="module" src="signInScreen.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+
+    <style>
+      .pixelify-sans {
+        font-family: "Pixelify Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal; 
+      }
+
+      label {color:#a8693c}
+
+      .pixelify-sans-bold {
+        font-family: "Pixelify Sans", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 699;
+        font-style: normal;
+      }
+
+      h1 {
+        color:#a8693c;
+        text-align: center;
+      }
+
+      p {
+        color:#a8693c;
+        font-family: "Arial", serif;
+        text-align: center;
+      }
+
+      body {
+        background-color: rgb(250, 222, 170);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .form-group label {
+        width: 200px;
+        text-align: right;
+        margin-right: 10px;
+      }
+
+      .form-group input {
+        width: 200px;
+        padding: 5px;
+      }
+
+      #loginButton:enabled {
+        display: block;
+        margin: 10px auto;
+        padding: 10 20;
+        color:#a8693c;
+        background-color: #ffffff;
+      }
+
+      #loginButton:disabled {
+        display: block;
+        margin: 10px auto;
+        padding: 10 20;
+        color:#a8693c;
+        background-color: #cbb3a2;
+      }
+
+      #redirectButton{
+        background-color: #ffffff;
+        color:#a8693c;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="pixelify-sans-bold">Log In Screen</h1>
+
+    <div class="form-group">
+      <label class="pixelify-sans" for="email">Email:</label>
+      <input class="pixelify-sans" type="text" id="email" name="email" placeholder="example@gmail.com"/>
+    </div>
+
+    <div class="form-group">
+      <label class="pixelify-sans" for="pass"
+        >Password (6 characters minimum):</label
+      >
+      <input
+        class="pixelify-sans"
+        type="password"
+        id="pass"
+        name="password"
+        minlength="6"
+        placeholder="Enter your password"
+      />
+    </div>
+
+    <button class="pixelify-sans" id="loginButton" disabled>Log In</button>
+
+    <a href="signUpScreen.html" class="form-group">
+      <button class="pixelify-sans" id = "redirectButton">I don't have an account</button>
+    </a>
+
+    <script type="module">
+      import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"; //for logging in
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyDH8gOaSQIYj4-9lWRfzPamhxSO9uLn4Qo",
+        authDomain: "cookingwebsite-15e8d.firebaseapp.com",
+        projectId: "cookingwebsite-15e8d",
+        storageBucket: "cookingwebsite-15e8d.firebasestorage.app",
+        messagingSenderId: "1008091511209",
+        appId: "1:1008091511209:web:e9ea0a9aed863e0d452cb8",
+        measurementId: "G-LE579SDNDP",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+      const auth = getAuth();
+
+      async function logIn() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("pass").value;
+        //convert email to a Firestore key
+        const emailRef = doc(db, "users", email);
+        const emailSnap = await getDoc(emailRef);
+
+        if (email === "" || password.length < 6) {
+          alert(
+            "Please fill in all the fields correctly (password must be at least 6 characters)."
+          );
+          return;
+        } else if (!emailSnap.exists()) {
+          alert("No account found with this email.");
+          return;
+        }
+
+        try {
+          const userCredential = await signInWithEmailAndPassword(auth, email, password);
+          const user = userCredential.user;
+
+          console.log("User signed in:", user);
+          const username = emailSnap.data().username;
+          localStorage.setItem("username", username); //saving the session locally
+          localStorage.setItem("email", email); //saving the session locally
+          window.location.href = "menuPage.html"; // Redirect after login
+        } catch (error) {
+          console.error("Login error:", error);
+        }
+
+        //getting the username associated with this email
+        const username = emailSnap.data().username;
+        console.log("Found username:", username);
+
+        //using the username to reference the user's actual document
+        const userRef = doc(db, "users", username);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          if (userData.password === password) {
+            alert("Login successful! Redirecting to home page...");
+            window.location.href = "menuPage.html";
+          } else {
+            alert("Incorrect password. Please try again.");
+          }
+        } else {
+          alert(
+            "Account with this email does not exist. Please go to the sign up page if you don't have an account."
+          );
+        }
+      }
+
+      function checkForm() {
+        const email = document.getElementById("email").value.trim();
+        const pass = document.getElementById("pass").value;
+        const button = document.getElementById("loginButton");
+        button.disabled = !(email && pass.length >= 6);
+      }
+
+      document.getElementById("loginButton").addEventListener("click", logIn);
+      document.getElementById("email").addEventListener("input", checkForm);
+      document.getElementById("pass").addEventListener("input", checkForm);
+    </script>
+  </body>
+</html>
