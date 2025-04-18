@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Wardrobe</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+
+        h1 {
+            color:#B15A63;
+            text-align: center;
+            position: static;
+            top: 2vh;
+            font-size:15vh;
+            margin: 5vh 0 3vh 0;
+        }
+
+        h2 {
+            color:#B15A63;
+            position: static;
+            top: 25vh;
+            left: 5%;
+            font-size:9vh;
+        }
+
+        body {
+            background-color: #f7e0e2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+        }
+
+        .done-button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            position: static;
+            top: 190vh;
+            margin-bottom: 20vh;
+        }
+
+        .done-button img {
+            width: 20vw; 
+            height: auto;
+            max-width: 345px; 
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .done-button:hover img {
+            transform: scale(1.1);
+        }
+
+        .item {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            justify-content: flex-start;
+            margin-top: 20px;
+        }
+
+        .item button {
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            position: relative;
+        }
+
+        .item img {
+            width: 20vw; 
+            height: auto;
+            max-width: 345px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .item button:hover img {
+            transform: scale(1.1);
+        }
+
+        .charter {
+            font-family: "Charter", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 800;
+            font-style: normal; 
+        }
+
+    </style>
+  </head>
+
+  <body>
+
+    <h1 class="charter">Closet</h1>
+
+    <div id="quiz-container"></div>
+
+    <button class = "item" id = "itemButton">
+        <img src="doneButton.png" alt="Done Button"/>
+    </button>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyCQ907RTSmRyw38xBoE9kOK7af4Ut4wIG0",
+          authDomain: "yourstylist-450ba.firebaseapp.com",
+          projectId: "yourstylist-450ba",
+          storageBucket: "yourstylist-450ba.firebasestorage.app",
+          messagingSenderId: "774264219494",
+          appId: "1:774264219494:web:c207dfc2e053e87653caa7"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+
+        localStorage.setItem("email", "nika");
+    
+        async function logResults() {
+            try {
+                const email = localStorage.getItem("email");
+                if (!email) {
+                    alert("Error: No user is logged in.");
+                    return;
+                }
+                localStorage.setItem("answers", ("" + answer1 + ", " + answer2 + ", " + answer3)); //add the amount of answers needed
+                alert("Answers saved successfully!"); //DELETE LATER
+            } catch (error) {
+                console.log("Error saving results: " + error);
+                alert("Something went wrong while saving the results.");
+            }
+        }
+
+        document.getElementById("doneButton").addEventListener("click", logResults);
+
+      </script>
+
+  </body>
+
+</html>

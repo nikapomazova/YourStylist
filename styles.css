@@ -1,0 +1,343 @@
+:root {
+    --main-font: "Charter", serif;
+}
+
+body {
+    background-color: #f2d8ca;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: var(--main-font); /*for inheriting the font*/
+    font-optical-sizing: auto;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 200px;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.form-group input {
+    width: 200px;
+    padding: 5px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    color: #B15A63;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #555;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #000;
+}
+
+h1 {
+    color:#B15A63;
+    text-align: center;
+    position: static;
+    top: 2vh;
+    font-size:15vh;
+    margin: 5vh 0 3vh 0;
+}
+
+h2 {
+    color:#B15A63;
+    position: static;
+    top: 25vh;
+    left: 5%;
+    font-size:9vh;
+}
+
+.question {
+    margin-bottom: 20vh;
+    width: 100%;
+}
+
+.question h2 {
+    position: static;
+    font-size: 5vh;
+    margin-bottom: 5vh;
+}
+
+.answers {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+/* buttons */
+
+#signupButton:enabled {
+    display: block;
+    margin: 10px auto;
+    padding: 10 20;
+    color: #B15A63;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+  #signupButton:disabled {
+    display: block;
+    margin: 10px auto;
+    padding: 10 20;
+    color: #B15A63;
+    background-color: #eac3ae;
+  }
+
+.auth-buttons .login-btn {
+    padding: 8px 20px;
+    background-color: #000;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.auth-buttons .login-btn:hover {
+    background-color: #333;
+}
+
+.test-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: static;
+    top: 190vh;
+    margin-bottom: 20vh;
+}
+
+.test-button img {
+    width: 20vw; 
+    height: auto;
+    max-width: 345px; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.test-button:hover img {
+    transform: scale(1.1);
+}
+
+.closet-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: static;
+    top: 190vh;
+    margin-bottom: 20vh;
+}
+
+.closet-button img {
+    width: 20vw; 
+    height: auto;
+    max-width: 345px; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.closet-button:hover img {
+    transform: scale(1.1);
+}
+
+.saved-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: static;
+    top: 190vh;
+    margin-bottom: 20vh;
+}
+
+.saved-button img {
+    width: 20vw; 
+    height: auto;
+    max-width: 345px; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.saved-button:hover img {
+    transform: scale(1.1);
+}
+
+.logout-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: static;
+    top: 190vh;
+    margin-bottom: 20vh;
+}
+
+.logout-button img {
+    width: 20vw; 
+    height: auto;
+    max-width: 345px; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.logout-button:hover img {
+    transform: scale(1.1);
+}
+
+#loginButton:enabled {
+    display: block;
+    margin: 10px auto;
+    padding: 10 20;
+    color: #B15A63;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+  #loginButton:disabled {
+    display: block;
+    margin: 10px auto;
+    padding: 10 20;
+    color: #B15A63;
+    background-color: #eac3ae;
+  }
+
+  #redirectButton{
+    background-color: #ffffff;
+    color: #B15A63;
+    cursor: pointer;
+  }
+
+  #sendCode:enabled {
+    display: block;
+    margin: 10px auto;
+    padding: 10 20;
+    color: #B15A63;
+    background-color: #ffffff;
+    cursor: pointer;
+  }
+
+  #sendCode:disabled {
+    display: block;
+    margin: 10px auto;
+    padding: 10 20;
+    color: #B15A63;
+    background-color: #eac3ae;
+  }
+
+  .done-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: static;
+    top: 190vh;
+    margin-bottom: 20vh;
+}
+
+.done-button img {
+    width: 20vw; 
+    height: auto;
+    max-width: 345px; 
+    transition: transform 0.3s ease-in-out;
+}
+
+.done-button:hover img {
+    transform: scale(1.1);
+}
+
+.answers button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+}
+
+.answers img {
+    width: 20vw; 
+    height: auto;
+    max-width: 345px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.answers button:hover img {
+    transform: scale(1.1);
+}
+
+/* fonts */
+
+.charter-bold {
+    font-family: var(--main-font);
+    font-weight: 1000;
+    font-optical-sizing: auto;
+    font-style: normal; 
+}
+
+.errorText {
+    font-family: var(--main-font);
+    font-size: 1%;
+    font-weight: 500;
+    font-optical-sizing: auto;
+    font-style: normal; 
+}
+
+button, input, textarea {
+    font-family: "Charter", serif; /*for inheriting the font*/
+    font-optical-sizing: auto;
+}
+
+/*email*/
+
+.email-container {
+    display: flex;
+    width: 100%;
+  }
+
+  .email-container input {
+    flex: 2;
+    padding: 5px;
+    height: auto;
+  }
+
+  .email-container button {
+    flex: 1;
+    padding: 5px 10px;
+    margin-left: 10px;
+    background-color: #ffffff;
+    color: #B15A63;
+  }
