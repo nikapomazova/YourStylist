@@ -1,4 +1,4 @@
-name: Remote Git Sync
+name: Deploy to Server
 
 on:
   push:
@@ -8,32 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup SSH
+      - name: SSH & Pull Latest Code
         run: |
-          #create .ssh directory with secure permissions
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-
-          #save private key (from GitHub Secrets)
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-          #trust the host (avoids manual confirmation)
-          ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts
-
-      - name: Execute Remote Commands
-        run: |
-          ssh -o StrictHostKeyChecking=accept-new \
-            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
-            "cd ${{ secrets.WORK_DIR }} && \
-             git fetch && \
-             git checkout ${{ secrets.MAIN_BRANCH }} && \
-             git pull origin ${{ secrets.MAIN_BRANCH }} && \
-             echo 'Successfully deployed!'"
-
-      - name: Secure Cleanup
-        run: |
-          #wipe sensitive files
-          shred -zu ~/.ssh/id_rsa
-          rm -f ~/.ssh/known_hosts
-          echo "Cleanup complete - no keys remain on runner."
+          ssh -o StrictHostKeyChecking=no \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "
+            cd ~/YourStylist
+            git pull origin main
+            "
