@@ -38,6 +38,7 @@ body {
     padding: 15px 50px;
     background-color: white;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 1vh;
 }
 
 label {
@@ -48,16 +49,20 @@ label {
     font-size: 24px;
     font-weight: bold;
     color: #333;
+    padding: 1vh 5vh;
 }
 
 .nav-links {
+    margin-right: 2vw;
+    margin-left: 2vw;
     display: flex;
-    gap: 30px;
+    gap: 10vh;
+    flex-grow: 1;
 }
 
 .nav-links a {
     text-decoration: none;
-    color: #555;
+    color: #a47579;
     font-weight: 500;
     transition: color 0.3s;
 }
@@ -124,13 +129,14 @@ h2 {
   }
 
 .auth-buttons .login-btn {
-    padding: 8px 20px;
-    background-color: #000;
+    padding: 1vh 4vw;
+    background-color: #671c23;
     color: white;
-    border-radius: 5px;
+    border-radius: 1vh;
     text-decoration: none;
     font-weight: 500;
     transition: background-color 0.3s;
+    white-space: nowrap;
 }
 
 .auth-buttons .login-btn:hover {
