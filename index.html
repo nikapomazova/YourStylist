@@ -2,31 +2,27 @@
 <html lang="en">
   <head>
     
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> 
 
     <title>Sign Up</title>
 
   </head>
   <body>
-    <h1 class="charter-bold">Sign up Screen</h1>
+    <h2 class="charter-bold">Sign up Screen</h2>
 
     <div class="form-group">
-      <label class="charter" for="username">Username:</label>
+      <label for="username">Name:</label>
       <input
-        class="charter"
         type="text"
-        id="username"
-        name="username"
-        placeholder="Enter your username"
+        id="name"
+        name="name"
+        placeholder="Enter your name"
       />
     </div>
 
     <div class="form-group">
-      <label class="charter" for="pass"
-        >Password (6 characters minimum):</label
-      >
+      <label for="pass">Password (6 characters minimum):</label>
       <input
-        class="charter"
         type="password"
         id="pass"
         name="password"
@@ -36,9 +32,8 @@
     </div>
 
     <div class="form-group">
-      <label class="charter">Repeat Password:</label>
+      <label>Repeat Password:</label>
       <input
-        class="charter"
         type="password"
         id="passRepeat"
         name="password"
@@ -48,52 +43,30 @@
     </div>
 
     <div class="form-group">
-      <label class="charter" for="email">e-mail:</label>
-      <div class="email-container">
-        <input
-          class="charter"
+      <label for="email">E-mail:</label>
+
+      <input
           type="email"
           id="email"
           name="e-mail"
-          placeholder="Enter your email"
+          placeholder="example@gmail.com"
         />
-        <button class="charter" id="sendCode" disabled>Send the Code</button>
-      </div>
     </div>
 
     <div class="form-group">
-      <label class="charter">Please enter the code here:</label>
-      <input
-        class="charter"
-        id="codeEntered"
-        minlength="6"
-        maxlength="6"
-        placeholder="123456"
-      />
+      <label class="errorText" id="errorDisplay"></label>
     </div>
 
-    <button class="charter" id="signupButton" disabled>Sign Up</button>
+    <button id="signupButton" disabled>Sign Up</button>
 
     <a href="LogIn.html" class="form-group">
-      <button class="charter" id="redirectButton">
+      <button  id="redirectButton">
         I already have an account
       </button>
     </a>
 
-    <script type="module">
-        import { Client, Account } from "https://esm.sh/appwrite";
-      
-        const client = new Client()
-          .setEndpoint("https://cloud.appwrite.io/v1")
-          .setProject("67fab4540027acd187eb");
-      
-        const account = new Account(client);
-      
-        //sign the user up
-        account.create('unique()', 'user@example.com', 'password123')
-          .then(console.log)
-          .catch(console.error);
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"></script>
+    <script src="signup.js"></script>
 
   </body>
 </html>

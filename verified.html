@@ -37,7 +37,10 @@
         //confirm the token is valid
         await account.updateVerification(userId, secret);
         document.getElementById('status').textContent = "Email verified successfully! Redirecting to Log In screen.";
-        window.location.href = '/LogIn.html'; //redirect to login screen
+
+        setTimeout(() => {
+            window.location.href = '/LogIn.html'; //redirect to login screen
+        }, 1000);
       } catch (error) {
         document.getElementById('status').textContent = "Verification failed. Redirecting to Sign Up screen.";
         window.location.href = '/index.html'; //redirect to signup screen

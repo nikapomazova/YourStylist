@@ -81,6 +81,7 @@ h2 {
     top: 25vh;
     left: 5%;
     font-size:9vh;
+    margin: 5vh 0 3vh 0;
 }
 
 .question {
@@ -114,6 +115,7 @@ h2 {
   }
 
   #signupButton:disabled {
+    border: 2px solid #c46d76;
     display: block;
     margin: 10px auto;
     padding: 10 20;
@@ -317,6 +319,8 @@ h2 {
 }
 
 button, input, textarea {
+    border: 2px solid #eeb7bc;
+    transition: border-color 0.3s ease;
     font-family: "Charter", serif; /*for inheriting the font*/
     font-optical-sizing: auto;
 }
