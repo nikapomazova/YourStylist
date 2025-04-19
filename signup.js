@@ -1,12 +1,6 @@
 console.log("Script loaded!");
 
-console.log("Client exists?", typeof Appwrite.Client); // Should print "function"
-
-//initialize the client
-const client = new Appwrite.Client().setEndpoint('https://fra.cloud.appwrite.io/v1').setProject('67fab4540027acd187eb');
-
-//initialize the account service
-const account = new Appwrite.Account(client);
+import { auth, createUserWithEmailAndPassword, sendEmailVerification } from "./firebaseInitializing.js";
 
 const nameElement = document.getElementById("name");
 const emailElement = document.getElementById("email");
@@ -18,7 +12,7 @@ emailElement.addEventListener("input", changeButton);
 passElement.addEventListener("input", changeButton);
 passRElement.addEventListener("input", () => {
     changeButton();
-    if (passElement.value !== passRElement.value) {
+    if (passElement.value !== passRElement.value || passElement.length<6) {
         passRElement.style.borderColor = "red";
     } else {
         passRElement.style.borderColor = "green";
@@ -44,23 +38,33 @@ signButton.addEventListener("click", async () => {
   
     if (password === passwordRepeat && password.length>=6) {
         try {
-            const response = await account.create('unique()', email, password, name);
-            console.log("User created:", response); //DELETE LATER maybe
+            //creating the user
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
         
-            //sending an email with verification
-            await account.createVerification(`${window.location.origin}/verify.html`);
-            alert("Verification email sent!");
+            //send verification email
+            await sendEmailVerification(user, {
+              url: 'https://yourstylist.stereopi.com/verified.html', //redirect to verified after verification
+            });
+
+            alert('Verification email sent! Check your inbox.');
+            window.location.href = '/LogIn.html';
           } catch (error) {
-
-            if (error.type === 'user_already_exists') { //if the account with that email already exists
-                if (confirm("Account already exists. Go to login?")) {
-                  window.location.href = "/LogIn.html";
-                }
+            
+            switch(error.code) {
+              case 'auth/email-already-in-use':
+                errorElement.textContent = 'Email already registered. Try logging in.';
+                break;
+              case 'auth/invalid-email':
+                errorElement.textContent = 'Invalid email format.';
+                break;
+              case 'auth/weak-password':
+                errorElement.textContent = 'Password must be at least 6 characters.';
+                break;
+              default:
+                errorElement.textContent = error.message;
             }
-
-            console.error("Signup error:", error);
-            alert("Something went wrong.");
-          }
+        }
     } else {
         alert("Please, enter the same password (6 characters minimum) in the second field.");
     }
