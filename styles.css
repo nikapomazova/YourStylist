@@ -49,12 +49,12 @@ label {
     font-size: 24px;
     font-weight: bold;
     color: #333;
-    padding: 1vh 5vh;
+    padding: 1vh 2vw;
 }
 
 .nav-links {
-    margin-right: 2vw;
-    margin-left: 2vw;
+    margin-right: 1vw;
+    margin-left: 1vw;
     display: flex;
     gap: 10vh;
     flex-grow: 1;
@@ -64,6 +64,7 @@ label {
     text-decoration: none;
     color: #a47579;
     font-weight: 500;
+    font-size: 2.5vh;
     transition: color 0.3s;
 }
 
@@ -128,19 +129,24 @@ h2 {
     background-color: #eac3ae;
   }
 
+  .auth-buttons {
+    padding: 1vh 3vw;
+  }
+
 .auth-buttons .login-btn {
-    padding: 1vh 4vw;
+    padding: 1.5vh 1.5vw;
     background-color: #671c23;
     color: white;
     border-radius: 1vh;
     text-decoration: none;
     font-weight: 500;
+    width: auto;
+    flex: none;
     transition: background-color 0.3s;
-    white-space: nowrap;
 }
 
 .auth-buttons .login-btn:hover {
-    background-color: #333;
+    background-color: #b2535d;
 }
 
 .test-button {

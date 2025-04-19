@@ -1,10 +1,10 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword,
   sendEmailVerification
-} from "firebase/auth";
+} from 'firebase/auth';
 
 const firebaseConfig = {
     apiKey: process.env.FIREBASE_API,
