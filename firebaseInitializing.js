@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCQ907RTSmRyw38xBoE9kOK7af4Ut4wIG0",
+    apiKey: process.env.FIREBASE_API,
     authDomain: "yourstylist.stereopi.com/",
     projectId: "yourstylist-450ba",
     storageBucket: "yourstylist-450ba.firebasestorage.app",
