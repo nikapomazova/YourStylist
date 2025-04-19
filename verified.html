@@ -3,7 +3,6 @@
 <head>
 
   <title>Verify Email</title>
-  <script src="https://cdn.jsdelivr.net/npm/appwrite@9.0.0"></script>
 
   <style>
     h3 {
@@ -12,43 +11,43 @@
         position: static;
         font-size:9vh;
     }
+    h4 {
+        color:#c81123;
+        font-weight: 200;
+        text-align: center;
+        position: static;
+        font-size:4vh;
+    }
   </style>
 
 </head>
 <body>
 
-  <h3 id = "status">Verifying your email...</h1>
+  <h3 id = "status">Verifying your email...</h3>
+  <h4 id="errorMsg"></h4>
   
   <script>
 
-    const client = new Client()
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('YOUR_PROJECT_ID');
+    import { getAuth, applyActionCode } from "firebase/auth";
+    import { auth } from "./firebase-config.js";
 
-    const account = new Account(client);
+    const params = new URLSearchParams(window.location.search);
+    const oobCode = params.get('oobCode'); //firebase's verification code
 
-    //extract the unique token from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const userId = urlParams.get('userId');
-    const secret = urlParams.get('secret');
-
-    async function verifyEmail() {
-      try {
-        //confirm the token is valid
-        await account.updateVerification(userId, secret);
-        document.getElementById('status').textContent = "Email verified successfully! Redirecting to Log In screen.";
-
-        setTimeout(() => {
-            window.location.href = '/LogIn.html'; //redirect to login screen
-        }, 1000);
-      } catch (error) {
-        document.getElementById('status').textContent = "Verification failed. Redirecting to Sign Up screen.";
-        window.location.href = '/index.html'; //redirect to signup screen
-      }
+    if (oobCode) {
+        try {
+            await applyActionCode(auth, oobCode);
+            document.getElementById('status').textContent ='Email verified successfully! You can now login.';
+            setTimeout(() => {
+                window.location.href = '/LogIn.html';
+            }, 3000);
+        } catch (error) {
+            document.getElementById('errorDisplay').textContent = error.message;
+            if (confirm("Go to sign up?")) {
+                window.location.href = "/index.html";
+            }
+        }
     }
-
-    //running verification when page loads
-    verifyEmail();
   </script>
 </body>
 </html>
