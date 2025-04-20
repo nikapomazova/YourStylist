@@ -19,6 +19,8 @@ document.getElementById("loginButton").addEventListener("click", async () => {
 
     try {
         //logging the user in
+        console.log("Email type: ", typeof email, ". Value: ", email);
+        console.log("Password type: ", typeof password, ". Value: ", password);
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
     
