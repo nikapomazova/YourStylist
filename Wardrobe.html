@@ -99,7 +99,7 @@
 
     <form id = "uploadForm" method="post" enctype="multipart/form-data">
         <input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">
-        <button type="submit" class="rectangle" id="addPic">
+        <button type="button" class="rectangle" id="addPic">
             <img src="plus.png"/>
         </button>
     </form>
@@ -144,7 +144,7 @@
         fetch(`upload.php?ufolder=${uid}`) //fetching images from the PHP script
         .then(response => response.text())
         .then(data => {
-            imageContainer.innerHTML = data;  //putting the images into the container
+            imageContainer.innerHTML = data;  //putting the images into the container, ie the div
         })
         .catch(error => {
             console.error("Error fetching images:", error);
