@@ -1,6 +1,6 @@
 <?php
 $uid = $_GET['ufolder']; // id is passed in
-echo "{$uid}"
+echo "{$uid}";
 
 // Define the folder where images are stored
 $dir = "uploads/$uid/";
