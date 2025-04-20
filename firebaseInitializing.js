@@ -1,4 +1,4 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 import { 
   getAuth, 
   createUserWithEmailAndPassword, 
@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
   signOut,
   applyActionCode
-} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCQ907RTSmRyw38xBoE9kOK7af4Ut4wIG0",
