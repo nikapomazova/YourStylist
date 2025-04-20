@@ -2,10 +2,17 @@ import {auth, signInWithEmailAndPassword} from "./firebaseInitializing.js?v=1.0"
 
 const loginButton = document.getElementById("loginButton");
 
-const email = document.getElementById("email").value.trim();
-const password = document.getElementById("password").value;
+const email = document.getElementById("email");
+const password = document.getElementById("password");
 
-loginButton.disabled = !(email && password);
+email.addEventListener("input", changeButton);
+password.addEventListener("input", changeButton);
+
+function changeButton() {
+    const emailV = email.value.trim();
+    const passwordV = password.value.trim();
+    loginButton.disabled = !(emailV && passwordV);
+}
 
 document.getElementById("loginButton").addEventListener("click", async () => {
     const errorText = document.getElementById("errorDisplay").value;

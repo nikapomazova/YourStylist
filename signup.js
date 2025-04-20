@@ -44,7 +44,7 @@ signButton.addEventListener("click", async () => {
         
             //send verification email
             await sendEmailVerification(user, {
-              url: 'https://yourstylist.stereopi.com/verified.html', //redirect to verified after verification
+              url: 'https://yourstylist.stereopi.com/LogIn.html', //redirect to verified after verification
             });
 
             alert('Verification email sent! Check your inbox.');
