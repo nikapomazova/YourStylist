@@ -1,4 +1,4 @@
-import {auth, signInWithEmailAndPassword} from "./firebaseInitializing.js";
+import {auth, signInWithEmailAndPassword} from "./firebaseInitializing.js?v=1.0";
 
 const loginButton = document.getElementById("loginButton");
 

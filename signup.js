@@ -1,6 +1,6 @@
 console.log("Script loaded!");
 
-import { auth, createUserWithEmailAndPassword, sendEmailVerification } from "./firebaseInitializing.js";
+import { auth, createUserWithEmailAndPassword, sendEmailVerification } from "./firebaseInitializing.js?v=1.0";
 
 const nameElement = document.getElementById("name");
 const emailElement = document.getElementById("email");
@@ -50,7 +50,7 @@ signButton.addEventListener("click", async () => {
             alert('Verification email sent! Check your inbox.');
             window.location.href = '/LogIn.html';
           } catch (error) {
-            
+
             switch(error.code) {
               case 'auth/email-already-in-use':
                 errorElement.textContent = 'Email already registered. Try logging in.';
