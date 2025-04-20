@@ -364,3 +364,13 @@ button, input, textarea {
     background-color: #ffffff;
     color: #B15A63;
   }
+
+/*pictures*/
+
+.rounded-image {
+    width: calc(25% - 10px);
+    height: auto;
+    border-radius: 20%;
+    object-fit: cover;
+    margin: 1vh;
+}

@@ -95,35 +95,67 @@
 
   <body>
 
-    <input 
-    type="file" 
-    id="image-upload" 
-    accept="image/*" 
-    style="display: none"
-    >
+    <input type="hidden" id="uidDisplay" name="uid">
 
-    <button class="rectangle" id="addPic">
-        <img src="plus.png"/>
-    </button>
+    <form id = "uploadForm" method="post" enctype="multipart/form-data">
+        <input type="file" name="fileToUpload" id="fileToUpload" style="display: none;">
+        <button type="submit" class="rectangle" id="addPic">
+            <img src="plus.png"/>
+        </button>
+    </form>
+
+    <div id="imageContainer"></div>
+
+    <script type="module">
+        import { auth, onAuthStateChanged } from "./firebaseInitializing.js";
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                document.getElementById("uidDisplay").value = uid;
+                const form = document.getElementById("uploadForm");
+                form.action = `upload.php?ufolder=${uid}`;
+                console.log("User is signed in. UID:", uid);
+            } else {
+                console.log("No user is signed in.");
+            }
+        });
+
+        import {initAuthListener} from './isSignedIn.js';
+        document.addEventListener('DOMContentLoaded', initAuthListener);
+
+        const fileUploaded = document.getElementById("fileToUpload");
+        const addPicButton = document.getElementById("addPic");
+        const uploadForm = document.getElementById("uploadForm");
+
+        addPicButton.addEventListener("click", () => {
+            fileUploaded.click();
+        });
+
+        fileUploaded.addEventListener("change", () => {
+            if (fileUploaded.files.length > 0) {
+                uploadForm.submit(); //when files are submitted submit the form automatically
+                window.location.reload();
+            }
+        });
+
+        const imageContainer = document.getElementById("imageContainer");
+
+        fetch(`upload.php?ufolder=${uid}`) //fetching images from the PHP script
+        .then(response => response.text())
+        .then(data => {
+            imageContainer.innerHTML = data;  //putting the images into the container
+        })
+        .catch(error => {
+            console.error("Error fetching images:", error);
+        });
+
+    </script>
 
     <h3>Made by: Nika</h3>
 
-    <script>
-        const uploadTrigger = document.getElementById('addPic');
-        const fileInput = document.getElementById('image-upload');
-        console.log(uploadTrigger + " " + fileInput);
-      
-        uploadTrigger.addEventListener('click', () => {
-            fileInput.click(); //open the file dialog
-        });
-      
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                console.log(file);
-                const reader = new FileReader();
-            }
-        });
+    <script> //for displaying pictures
+
     </script>
 
   </body>
