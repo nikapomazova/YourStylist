@@ -12,6 +12,7 @@ function changeButton() {
     const emailV = email.value.trim();
     const passwordV = password.value.trim();
     loginButton.disabled = !(emailV && passwordV);
+    console.log("email: " + emailV + ", pass: !" + passwordV)
 }
 
 document.getElementById("loginButton").addEventListener("click", async () => {
