@@ -149,27 +149,6 @@ h2 {
     background-color: #b2535d;
 }
 
-.test-button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    outline: none;
-    position: static;
-    top: 190vh;
-    margin-bottom: 20vh;
-}
-
-.test-button img {
-    width: 20vw; 
-    height: auto;
-    max-width: 345px; 
-    transition: transform 0.3s ease-in-out;
-}
-
-.test-button:hover img {
-    transform: scale(1.1);
-}
-
 .closet-button {
     background: transparent;
     border: none;
@@ -334,6 +313,13 @@ h2 {
 
 button, input, textarea {
     border: 2px solid #eeb7bc;
+    transition: border-color 0.3s ease;
+    font-family: var(--main-font); /*for inheriting the font*/
+    font-optical-sizing: auto;
+}
+
+.selected {
+    border: 8px solid #661d25;
     transition: border-color 0.3s ease;
     font-family: var(--main-font); /*for inheriting the font*/
     font-optical-sizing: auto;

@@ -4,15 +4,20 @@ let loginButton;
 
 //check auth state
 export function initAuthListener() {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log("Logged in user:", user.uid);
-            updateUIForLoggedInUser(user);
-        } else {
-            console.log("No user logged in");
-            updateUIForLoggedOutUser();
-        }
-    });
+    console.log("function works!");
+    try {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Logged in user:", user.uid);
+                updateUIForLoggedInUser(user);
+            } else {
+                console.log("No user logged in");
+                updateUIForLoggedOutUser();
+            }
+        });
+    } catch (error) {
+        updateUIForLoggedOutUser();
+    }
 }
 
 export function updateUIForLoggedInUser(user) {
@@ -35,7 +40,7 @@ export function updateUIForLoggedOutUser() {
     if (loginButton) {
         loginButton.textContent = "Log In";
         loginButton.onclick = () => window.location.href = "/LogIn.html";
-        alert("You are not logged in. Redirecting to login screen");
-        window.location.href = '/LogIn.html';
-      }
+    }
+    alert("You are not logged in. Redirecting to login screen");
+    window.location.href = '/LogIn.html';
 }

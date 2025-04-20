@@ -95,6 +95,11 @@
 
   <body>
 
+    <script type="module">
+        import {initAuthListener} from './isSignedIn.js';
+        document.addEventListener('DOMContentLoaded', initAuthListener);
+    </script>
+
     <header class="top-bar">
         <div class="logo">YourStylist</div>
         <nav class="nav-links">
@@ -105,7 +110,7 @@
             <a href="#generateSection">Outfit Suggestions</a>
         </nav>
         <div class="auth-buttons">
-            <a href="#" class="login-btn">Login</a>
+            <a href="LogIn.html" id="loginButton" class="login-btn">Login</a>
         </div>
     </header>
 

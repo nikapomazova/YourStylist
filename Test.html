@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="styles.css">
 
     <script type="module" src="login.js" defer></script>
+    <script type="module" defer>
+        import {auth, doc, setDoc, db} from "./firebaseInitializing.js?v=1.0";
+    </script>
 
     <style>
         section {
@@ -20,11 +23,6 @@
   </head>
 
   <body>
-
-    <script type="module">
-        import {initAuthListener} from './isSignedIn.js';
-        document.addEventListener('DOMContentLoaded', initAuthListener);
-    </script>
 
     <section>
         <button id="menuB" href="Menu.html" class="menu-button">
@@ -77,6 +75,7 @@
         ];
 
         const container = document.getElementById("quiz-container");
+        const quizAnswers = {};
 
         quizData.forEach((item, index) => {
             const questionDiv = document.createElement("div");
@@ -90,9 +89,20 @@
             answersDiv.classList.add("answers");
 
             item.answers.forEach(answer => {
+
                 const btn = document.createElement("button");
                 btn.textContent = answer.text;
-                btn.classList.add("quiz-answer-button");
+
+                btn.addEventListener("click", () => {
+                    const allButtons = answersDiv.querySelectorAll("button");
+                    allButtons.forEach(b => b.classList.remove("selected")); //deselecting all the buttons in this answer group
+
+                    btn.classList.add("selected");
+
+                    quizAnswers[index] = answer.text;
+                    console.log(quizAnswers[index]);
+                });
+
                 answersDiv.appendChild(btn);
             });
 
@@ -110,22 +120,37 @@
         localStorage.setItem("email", "nika");
     
         async function logResults() {
-            try {
-                const email = localStorage.getItem("email");
-                if (!email) {
-                    alert("Error: No user is logged in.");
-                    return;
-                }
-                localStorage.setItem("answers", ("" + answer1 + ", " + answer2 + ", " + answer3)); //add thhe amount of answers needed
-                alert("Answers saved successfully!"); //DELETE LATER
-            } catch (error) {
-                console.log("Error saving results: " + error);
-                alert("Something went wrong while saving the results.");
+
+            const user = auth.currentUser;
+    
+            if (!user) {
+                alert("No user is logged in!");
+                return;
             }
+
+            try {
+                const userRef = doc(db, "users", user.uid);
+                await setDoc(userRef, {
+                    quizAnswers: quizAnswers
+                }, { merge: true });
+
+                alert("Quiz answers saved successfully!");
+            } catch (error) {
+                console.error("Error saving quiz answers: ", error);
+                alert("Failed to save quiz answers.");
+            }
+
         }
 
         document.getElementById("doneButton").addEventListener("click", logResults);
     
+    </script>
+
+    <script type="module">
+        import {initAuthListener} from './isSignedIn.js';
+
+        console.log("script loaded");
+        initAuthListener();
     </script>
 
   </body>
