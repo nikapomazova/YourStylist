@@ -11,7 +11,7 @@ import {
 
 const firebaseConfig = {
     apiKey: "AIzaSyCQ907RTSmRyw38xBoE9kOK7af4Ut4wIG0",
-    authDomain: "yourstylist.stereopi.com",
+    authDomain: "yourstylist-450ba.firebaseapp.com",
     projectId: "yourstylist-450ba",
     storageBucket: "yourstylist-450ba.firebasestorage.app",
     messagingSenderId: "774264219494",
