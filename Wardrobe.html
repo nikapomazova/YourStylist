@@ -8,85 +8,11 @@
 
     <style>
 
-        .rectangle {
-            background: #B15A63;
-            display: flex;
-            padding: 1vw;
-            border-radius: 2vh;
-            width: 10vh;
-            height: 10vh;
-            margin: 3vh;
-            transition: all 0.3s ease; /*for animation*/
-            cursor: pointer;
-            justify-content: center;
-            align-items: center;
-            font-size: 10vh; /* control "+" size */
-            line-height: 1;
-            position: static;
-        }
-
-        .rectangle:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 20px rgba(97,19,26,0.3); /*add shadow*/
-        }
-
-        .rectangle-link { /*so that the link doesnt include the hyperlink and it looks nice*/
-            text-decoration: none;
-            color: inherit;
-            display: contents;
-        }
-
-        .rectangle img {
-            width: 10vh;
-            position: static;
-            border-radius: 1vh;
-            filter: invert(100%);
-        }
-
-        p {
-            font-family: var(--main-font);
-            font-size: 4vh;
-            font-weight: 600;
-            color: #f6eaeb;
-            grid-column: 2;
-            grid-row: 2;
-            align-self: start;
-            margin-top: 0;
-        }
-
-        h4 {
-            font-family: var(--main-font);
-            font-size: 8vh;
-            font-weight: 900;
-            color: #f6eeef;
-            grid-column: 2;
-            grid-row: 1;
-            align-self: end;
-            margin-bottom: 0;
-        }
-
-        .smallRectImg {
+        section {
+            width: 100%;
             height: auto;
-            width: 80%;
-            position: static;
-            border-radius: 1vh;
-            grid-column: 1;
-            grid-row: 1;
-            justify-self: center;
-            grid-row: 1 / span 2; /*so that it takes both rows*/
-            align-self: center;
-            justify-self: center;
-        }
-
-        .smallRectText {
-            font-family: var(--main-font);
-            font-size: 4vh;
-            font-weight: 600;
-            color: #f6eaeb;
-            grid-column: 2;
-            grid-row: 1 / span 2; /*so that it takes both rows*/
-            align-self: center;
-            margin-top: 0;
+            flex-direction: row;
+            align-items: left;
         }
 
     </style>
