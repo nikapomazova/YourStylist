@@ -25,7 +25,13 @@ echo "point 3 ";
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
   echo "point 4 ";
+  if (isset($_FILES["fileToUpload"])) {
+    echo "Upload error code: " . $_FILES["fileToUpload"]["error"];
+  }
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+  if (isset($_FILES["fileToUpload"])) {
+    echo "Upload error code: " . $_FILES["fileToUpload"]["error"];
+  }
   echo "point 4.2 ";
   if($check !== false) {
     echo "point 4.3 ";
