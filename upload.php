@@ -24,6 +24,7 @@ echo "point 3 ";
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
+  echo "point 4 ";
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
   if($check !== false) {
     echo "File is an image - " . $check["mime"] . ".";
@@ -33,8 +34,6 @@ if(isset($_POST["submit"])) {
     $uploadOk = 0;
   }
 }
-
-echo "point 4 ";
 
 // Check if file already exists
 if (file_exists($target_file)) {
