@@ -316,6 +316,7 @@ button, input, textarea {
     transition: border-color 0.3s ease;
     font-family: var(--main-font); /*for inheriting the font*/
     font-optical-sizing: auto;
+    text-decoration: none;
 }
 
 .selected {
