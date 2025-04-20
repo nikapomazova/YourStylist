@@ -111,6 +111,7 @@
 
         let uid = null;
 
+        console.log(auth);
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 uid = user.uid;
