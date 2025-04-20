@@ -1,6 +1,6 @@
 console.log("Script loaded!");
 
-import { auth, createUserWithEmailAndPassword, sendEmailVerification } from "./firebaseInitializing.js?v=1.0.2";
+import { auth, createUserWithEmailAndPassword, sendEmailVerification, doc, setDoc, db } from "./firebaseInitializing.js?v=1.0.2";
 
 const nameElement = document.getElementById("name");
 const emailElement = document.getElementById("email");
@@ -41,6 +41,12 @@ signButton.addEventListener("click", async () => {
             //creating the user
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
+
+            await setDoc(doc(db, "users", user.uid), {
+                name: name,
+                email: email,
+                quizAnswers: [],
+              });
         
             //send verification email
             await sendEmailVerification(user, {
