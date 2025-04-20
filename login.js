@@ -15,7 +15,7 @@ function changeButton() {
 }
 
 document.getElementById("loginButton").addEventListener("click", async () => {
-    const errorText = document.getElementById("errorDisplay").value;
+    const errorText = document.getElementById("errorDisplay");
 
     try {
         //logging the user in
