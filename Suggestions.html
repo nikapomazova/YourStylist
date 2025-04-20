@@ -81,7 +81,6 @@
 
         //FOR THE UID FETCHING
 
-
         import { auth, onAuthStateChanged } from "./firebaseInitializing.js";
 
         let uid = null;
@@ -91,19 +90,25 @@
             if (user) {
                 uid = user.uid;
                 document.getElementById("uidDisplay").value = uid;
+
+                const imageGroups = [
+                    [`uploads/${uid}/camphoto_959030623.JPG`, `uploads/${uid}/86AA5201-1B12-45FA-89A6-8A231A4E3013_4_5005_c.jpeg`, "uid1_img3.jpg"],
+                    ["uid2_img1.png", "uid2_img2.png", "uid2_img3.png"],
+                    ["uid3_img1.jpg", "uid3_img2.jpg", "uid3_img3.jpg"],
+                    ["uid4_img1.jpg", "uid4_img2.jpg", "uid4_img3.jpg"]
+                ];
+
+                //creating 4 carousels
+                imageGroups.forEach((group, index) => {
+                    createCarousel(group, index);
+                    showSlide(index, 0); //showing first slide by default
+                });
             } else {
                 console.log("No user is signed in.");
             }
         });
 
         //FOR CAROUSEL LOGIC
-
-        const imageGroups = [
-            ["uploads/$uid/camphoto_959030623.JPG", "uid1_img2.jpg", "uid1_img3.jpg"],
-            ["uid2_img1.png", "uid2_img2.png", "uid2_img3.png"],
-            ["uid3_img1.jpg", "uid3_img2.jpg", "uid3_img3.jpg"],
-            ["uid4_img1.jpg", "uid4_img2.jpg", "uid4_img3.jpg"]
-        ];
 
         function createCarousel(images, index) {
             const carouselId = `carousel${index}`;
@@ -142,15 +147,15 @@
                 dot.addEventListener("click", () => showSlide(index, i));
                 dotsContainer.appendChild(dot);
             }
-            }
+        }
 
-            let slideIndexes = [0, 0, 0, 0];
+        let slideIndexes = [0, 0, 0, 0];
 
-            function moveSlide(carouselIndex, n) {
+        function moveSlide(carouselIndex, n) {
             showSlide(carouselIndex, slideIndexes[carouselIndex] + n);
-            }
+        }
 
-            function showSlide(carouselIndex, n) {
+        function showSlide(carouselIndex, n) {
             const carousel = document.getElementById(`carousel${carouselIndex}`);
             const images = carousel.querySelectorAll(".carousel-image");
             const dots = document.querySelectorAll(`#dots${carouselIndex} .dot`);
@@ -167,16 +172,7 @@
             });
 
             slideIndexes[carouselIndex] = n;
-            }
-
-            //creating 4 carousels
-            imageGroups.forEach((group, index) => {
-            createCarousel(group, index);
-            showSlide(index, 0); //showing first slide by default
-            });
-
-
-
+        }
 
     </script>
 
