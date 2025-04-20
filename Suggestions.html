@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>Your Stylist</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+
+        .rectangle {
+            background: #B15A63;
+            display: flex;
+            padding: 1vw;
+            border-radius: 2vh;
+            width: 40vh;
+            height: auto;
+            margin: 3vh;
+            font-size: 3vh;
+            color:rgb(246, 233, 235);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            position: static;
+        }
+
+        .rectangle:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(97,19,26,0.3); /*add shadow*/
+        }
+
+        .rectangle-link { /*so that the link doesnt include the hyperlink and it looks nice*/
+            text-decoration: none;
+            color: inherit;
+            display: contents;
+        }
+
+        .rectangle img {
+            width: 10vh;
+            position: static;
+            border-radius: 1vh;
+            filter: invert(100%);
+        }
+
+        section {
+            width: 100%;
+            height: auto;
+            flex-direction: row;
+            align-items: left;
+        }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <input type="hidden" id="uidDisplay" name="uid"> <!--for saving the users uid and accessing it from everywhere-->
+
+    <section>
+        <button id="menuB" href="/Menu.html" class="menu-button">
+            Menu
+        </button>
+    </section>
+
+    <script>
+        document.getElementById("menuB").addEventListener("click", function() {
+            window.location.href = "Main.html";
+        });
+    </script>
+
+    <input type="hidden" id="uidDisplay" name="uid">
+
+    <button type="button" class="rectangle" id="generate">Generate Outfit</button>
+
+    <div id="multiCarouselContainer"></div>
+
+    <script type="module">
+
+        //FOR THE UID FETCHING
+
+
+        import { auth, onAuthStateChanged } from "./firebaseInitializing.js";
+
+        let uid = null;
+        const multiCarouselContainer = document.getElementById("multiCarouselContainer");
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                uid = user.uid;
+                document.getElementById("uidDisplay").value = uid;
+            } else {
+                console.log("No user is signed in.");
+            }
+        });
+
+        //FOR CAROUSEL LOGIC
+
+        const imageGroups = [
+            ["uid1_img1.jpg", "uid1_img2.jpg", "uid1_img3.jpg"],
+            ["uid2_img1.png", "uid2_img2.png", "uid2_img3.png"],
+            ["uid3_img1.jpg", "uid3_img2.jpg", "uid3_img3.jpg"],
+            ["uid4_img1.jpg", "uid4_img2.jpg", "uid4_img3.jpg"]
+        ];
+
+        function createCarousel(images, index) {
+            const carouselId = `carousel${index}`;
+            const dotsId = `dots${index}`;
+            const wrapper = document.createElement("div");
+            wrapper.className = "carousel";
+            wrapper.id = carouselId;
+
+            //create image container
+            const imageContainer = document.createElement("div");
+            imageContainer.className = "carousel-images";
+
+            images.forEach((img, i) => {
+                const imgTag = document.createElement("img");
+                imgTag.src = `uploads/${img}`;
+                imgTag.className = "carousel-image";
+                imageContainer.appendChild(imgTag);
+            });
+
+            wrapper.appendChild(imageContainer);
+
+            //left and right arrrows
+            wrapper.innerHTML += `
+                <button class="carousel-btn prev" onclick="moveSlide(${index}, -1)">&#10094;</button>
+                <button class="carousel-btn next" onclick="moveSlide(${index}, 1)">&#10095;</button>
+                <div class="carousel-dots" id="${dotsId}"></div>
+            `;
+
+            document.getElementById("multiCarouselContainer").appendChild(wrapper);
+
+            //generating dots
+            const dotsContainer = document.getElementById(dotsId);
+            for (let i = 0; i < images.length; i++) {
+                const dot = document.createElement("span");
+                dot.className = "dot";
+                dot.addEventListener("click", () => showSlide(index, i));
+                dotsContainer.appendChild(dot);
+            }
+            }
+
+            let slideIndexes = [0, 0, 0, 0];
+
+            function moveSlide(carouselIndex, n) {
+            showSlide(carouselIndex, slideIndexes[carouselIndex] + n);
+            }
+
+            function showSlide(carouselIndex, n) {
+            const carousel = document.getElementById(`carousel${carouselIndex}`);
+            const images = carousel.querySelectorAll(".carousel-image");
+            const dots = document.querySelectorAll(`#dots${carouselIndex} .dot`);
+
+            if (n >= images.length) n = 0;
+            if (n < 0) n = images.length - 1;
+
+            images.forEach((img, i) => {
+                img.style.display = (i === n) ? "block" : "none";
+            });
+
+            dots.forEach((dot, i) => {
+                dot.classList.toggle("active", i === n);
+            });
+
+            slideIndexes[carouselIndex] = n;
+            }
+
+            //creating 4 carousels
+            imageGroups.forEach((group, index) => {
+            createCarousel(group, index);
+            showSlide(index, 0); //showing first slide by default
+            });
+
+
+
+
+    </script>
+
+    <h3>Made by: Nika</h3>
+
+    <script> //for displaying pictures
+
+    </script>
+
+  </body>
+
+</html>

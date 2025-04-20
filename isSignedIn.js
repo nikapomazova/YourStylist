@@ -4,7 +4,6 @@ let loginButton;
 
 //check auth state
 export function initAuthListener() {
-    console.log("function works!");
     try {
         onAuthStateChanged(auth, (user) => {
             if (user) {

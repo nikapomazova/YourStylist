@@ -20,7 +20,6 @@
             cursor: pointer;
             justify-content: center;
             align-items: center;
-            font-size: 10vh; /* control "+" size */
             line-height: 1;
             position: static;
         }
@@ -106,9 +105,6 @@
                 console.log("No user is signed in.");
             }
         });
-
-        import {initAuthListener} from './isSignedIn.js';
-        document.addEventListener('DOMContentLoaded', initAuthListener);
 
         const fileUploaded = document.getElementById("fileToUpload");
         const addPicButton = document.getElementById("addPic");

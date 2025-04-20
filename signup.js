@@ -53,7 +53,7 @@ signButton.addEventListener("click", async () => {
               url: 'https://yourstylist.stereopi.com/LogIn.html', //redirect to verified after verification
             });
 
-            alert('Verification email sent! Check your inbox.');
+            alert('Verification email sent! Check your inbox (and spam folder!).');
             window.location.href = '/LogIn.html';
           } catch (error) {
 
