@@ -26,7 +26,7 @@ echo "point 3 ";
 if(isset($_POST["submit"])) {
   echo "point 4 ";
   $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-  if($check !== false) {
+  if($check != false) {
     echo "point 4.3 ";
     //echo "File is an image - " . $check["mime"] . ".";
     $uploadOk = 1;
