@@ -97,7 +97,8 @@ const quizContainer = document.getElementById("quiz-container");
                 quizAnswers: quizAnswers
             }, { merge: true });
     
-            alert("Quiz answers saved successfully!");
+            alert("Quiz answers saved successfully! Redirecting to the menu page.");
+            window.location.href = '/Main.html';
         } catch (error) {
             console.error("Error saving quiz answers: ", error);
             alert("Failed to save quiz answers.");
