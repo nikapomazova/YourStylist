@@ -87,6 +87,16 @@
             showSlide(carouselIndex, slideIndexes[carouselIndex] + n);
         }
 
+        document.addEventListener('click', (e) => { //when the user clicks on the button, this function sees which button exacly and puts it into index into the function
+            if (e.target.classList.contains('prev')) {
+                const index = parseInt(e.target.dataset.index);
+                moveSlide(index, -1);
+            } else if (e.target.classList.contains('next')) {
+                const index = parseInt(e.target.dataset.index);
+                moveSlide(index, 1);
+            }
+        });
+
         let uid = null;
         const multiCarouselContainer = document.getElementById("multiCarouselContainer");
 
@@ -140,14 +150,12 @@
             prevBtn.id = `prevBtn${index}`;
             prevBtn.innerHTML = '&#10094;';
             prevBtn.dataset.index = index;
-            document.getElementById(`prevBtn${index}`).addEventListener("click", moveSlide(index, -1));
 
             const nextBtn = document.createElement('button');
             nextBtn.className = 'carousel-btn next';
             nextBtn.id = `nextBtn${index}`;
             nextBtn.innerHTML = '&#10095;';
             nextBtn.dataset.index = index;
-            document.getElementById(`nextBtn${index}`).addEventListener("click", moveSlide(index, 1));
 
             const dotsDiv = document.createElement('div');
             dotsDiv.className = 'carousel-dots';
