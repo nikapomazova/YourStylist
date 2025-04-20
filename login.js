@@ -7,6 +7,8 @@ const password = document.getElementById("pass");
 
 email.addEventListener("input", changeButton);
 password.addEventListener("input", changeButton);
+const emailV = email.value.trim();
+const passwordV = password.value.trim();
 
 function changeButton() {
     const emailV = email.value.trim();
@@ -21,7 +23,7 @@ document.getElementById("loginButton").addEventListener("click", async () => {
         //logging the user in
         console.log("Email type: ", typeof email, ". Value: ", email);
         console.log("Password type: ", typeof password, ". Value: ", password);
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, emailV, passwordV);
         const user = userCredential.user;
     
         //checking if email is verified
