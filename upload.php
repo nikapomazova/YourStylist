@@ -34,6 +34,8 @@ if(isset($_POST["submit"])) {
   }
 }
 
+echo "point 4 ";
+
 // Check if file already exists
 if (file_exists($target_file)) {
   echo "Sorry, file already exists.";
@@ -53,11 +55,14 @@ if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg
   $uploadOk = 0;
 }
 
+echo "point 5 ";
+
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
+  echo "point 6 ";
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
     header("Location: /Wardrobe.html");
