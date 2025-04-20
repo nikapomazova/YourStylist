@@ -143,7 +143,7 @@
 
         const imageContainer = document.getElementById("imageContainer");
 
-        fetch(`upload.php?ufolder=${uid}`) //fetching images from the PHP script
+        fetch(`display.php?ufolder=${uid}`) //fetching images from the PHP script
         .then(response => response.text())
         .then(data => {
             imageContainer.innerHTML = data;  //putting the images into the container, ie the div
