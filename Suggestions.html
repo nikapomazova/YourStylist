@@ -135,11 +135,25 @@
             wrapper.appendChild(imageContainer);
 
             //left and right arrrows
-            wrapper.innerHTML += `
-                <button class="carousel-btn prev" onclick="moveSlide(${index}, -1)">&#10094;</button>
-                <button class="carousel-btn next" onclick="moveSlide(${index}, 1)">&#10095;</button>
-                <div class="carousel-dots" id="${dotsId}"></div>
-            `;
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'carousel-btn prev';
+            prevBtn.id = `prevBtn${index}`;
+            prevBtn.innerHTML = '&#10094;';
+            prevBtn.dataset.index = index;
+            document.getElementById(`prevBtn${index}`).addEventListener("click", moveSlide(index, -1));
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'carousel-btn next';
+            nextBtn.id = `nextBtn${index}`;
+            nextBtn.innerHTML = '&#10095;';
+            nextBtn.dataset.index = index;
+            document.getElementById(`nextBtn${index}`).addEventListener("click", moveSlide(index, 1));
+
+            const dotsDiv = document.createElement('div');
+            dotsDiv.className = 'carousel-dots';
+            dotsDiv.id = dotsId;
+
+            wrapper.append(prevBtn, nextBtn, dotsDiv);
 
             document.getElementById("multiCarouselContainer").appendChild(wrapper);
 
