@@ -5,48 +5,73 @@
     <title>Test</title>
 
     <link rel="stylesheet" href="styles.css">
-    
+
+    <script type="module" src="login.js" defer></script>
+
+    <style>
+        section {
+            width: 100%;
+            height: auto;
+            flex-direction: row;
+            align-items: left;
+        }
+    </style>
+
   </head>
 
   <body>
+
+    <script type="module">
+        import {initAuthListener} from './isSignedIn.js';
+        document.addEventListener('DOMContentLoaded', initAuthListener);
+    </script>
+
+    <section>
+        <button id="menuB" href="Menu.html" class="menu-button">
+            Menu
+        </button>
+    </section>
 
     <h1 class="charter">Test</h1>
 
     <div id="quiz-container"></div>
 
     <script>
+        document.getElementById("menuB").addEventListener("click", function() {
+            window.location.href = "Main.html";
+        });
         const quizData = [
             {
-                question: "What is your body shape?",
-                answers: [{text: "Hourglass", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"}
+                question: "What type of clothes do you usually wear?",
+                answers: [{text: "Casual", image: "answerSampleButton.png"},
+                {text: "Sporty", image: "answerSampleButton.png"},
+                {text: "Formal", image: "answerSampleButton.png"},
+                {text: "Streetwear", image: "answerSampleButton.png"}
                 ]
                 
             },
             {
-                question: "What is the capital of France?",
-                answers: [{text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"}
+                question: "What best describes your daily lifestyle?",
+                answers: [{text: "Office", image: "answerSampleButton.png"},
+                {text: "School", image: "answerSampleButton.png"},
+                {text: "Active", image: "answerSampleButton.png"},
+                {text: "Homebody", image: "answerSampleButton.png"}
                 ]
             },
             {
-                question: "Which planet is known as the Red Planet?",
-                answers: [{text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"}
+                question: "What's your preferred fit?",
+                answers: [{text: "Tight", image: "answerSampleButton.png"},
+                {text: "Tailored", image: "answerSampleButton.png"},
+                {text: "Relaxed", image: "answerSampleButton.png"},
+                {text: "Oversized", image: "answerSampleButton.png"}
                 ]
             },
             {
-                question: "What is the boiling point of water?",
-                answers: [{text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"},
-                {text: "answer1", image: "answerSampleButton.png"}
+                question: "Which color palette do you usually wear?",
+                answers: [{text: "Neutrals", image: "answerSampleButton.png"},
+                {text: "Pastels", image: "answerSampleButton.png"},
+                {text: "Warm", image: "answerSampleButton.png"},
+                {text: "Bold & Bright", image: "answerSampleButton.png"}
                 ]
             }
         ];
@@ -66,11 +91,8 @@
 
             item.answers.forEach(answer => {
                 const btn = document.createElement("button");
-                const img = document.createElement("img");
-                img.src = answer.image;
-                img.alt = answer.text;
-
-                btn.appendChild(img);
+                btn.textContent = answer.text;
+                btn.classList.add("quiz-answer-button");
                 answersDiv.appendChild(btn);
             });
 
