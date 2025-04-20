@@ -11,8 +11,8 @@ const emailV = email.value.trim();
 const passwordV = password.value.trim();
 
 function changeButton() {
-    const emailV = email.value.trim();
-    const passwordV = password.value.trim();
+    emailV = email.value.trim();
+    passwordV = password.value.trim();
     loginButton.disabled = !(emailV && passwordV);
 }
 
@@ -21,8 +21,8 @@ document.getElementById("loginButton").addEventListener("click", async () => {
 
     try {
         //logging the user in
-        console.log("Email type: ", typeof email, ". Value: ", email);
-        console.log("Password type: ", typeof password, ". Value: ", password);
+        console.log("Email type: ", typeof emailV, ". Value: ", emailV);
+        console.log("Password type: ", typeof passwordV, ". Value: ", passwordV);
         const userCredential = await signInWithEmailAndPassword(auth, emailV, passwordV);
         const user = userCredential.user;
     
