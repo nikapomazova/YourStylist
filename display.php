@@ -8,6 +8,7 @@ $images = glob($dir . "*.{jpg,jpeg,png,gif}", GLOB_BRACE);
 
 if (count($images) > 0) {
     // Loop through the images and display them
+    echo "Found " . count($images) . " images:";
     foreach ($images as $image) {
         echo '<img src="' . $image . '" class="rounded-image">';  // Display each image
     }
