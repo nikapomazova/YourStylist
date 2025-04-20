@@ -1,17 +1,17 @@
 <?php
 
 if ($_GET) {
- // echo "We've got parameters \r\n";
+ echo "We've got parameters \r\n";
   $ufolder = $_GET['ufolder'];
   $target_dir = "/var/www/html/uploads/{$ufolder}/";
- // echo "Target dir is {$target_dir} \r\n";
+ echo "Target dir is {$target_dir} \r\n";
   } else {
- // echo "No parameters passed";
+ echo "No parameters passed";
   $target_dir = "/var/www/html/uploads/";
   }
 // Check if user directory exists
 if (!is_dir("{$target_dir}")) {
-   //echo "Dir does not exist - creating";
+   echo "Dir does not exist - creating";
    mkdir("{$target_dir}", 0777, true);
 }
 
@@ -55,7 +55,6 @@ if ($uploadOk == 0) {
   echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-  echo "{$target_file}";
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
     header("Location: /Wardrobe.html");
