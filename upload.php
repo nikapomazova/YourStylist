@@ -15,9 +15,12 @@ if (!is_dir("{$target_dir}")) {
    mkdir("{$target_dir}", 0777, true);
 }
 
+echo "point 1 ";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+echo "point 2 ";
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+echo "point 3 ";
 
 // Check if image file is a actual image or fake image
 if(isset($_POST["submit"])) {
