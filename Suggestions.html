@@ -71,8 +71,6 @@
         });
     </script>
 
-    <input type="hidden" id="uidDisplay" name="uid">
-
     <button type="button" class="rectangle" id="generate">Generate Outfit</button>
 
     <div id="multiCarouselContainer"></div>
@@ -83,6 +81,12 @@
 
         import { auth, onAuthStateChanged } from "./firebaseInitializing.js";
 
+        let slideIndexes = [0, 0, 0, 0];
+
+        function moveSlide(carouselIndex, n) {
+            showSlide(carouselIndex, slideIndexes[carouselIndex] + n);
+        }
+
         let uid = null;
         const multiCarouselContainer = document.getElementById("multiCarouselContainer");
 
@@ -92,7 +96,7 @@
                 document.getElementById("uidDisplay").value = uid;
 
                 const imageGroups = [
-                    [`uploads/${uid}/camphoto_959030623.JPG`, `uploads/${uid}/86AA5201-1B12-45FA-89A6-8A231A4E3013_4_5005_c.jpeg`, "uid1_img3.jpg"],
+                    [`${uid}/camphoto_959030623.JPG`, `${uid}/86AA5201-1B12-45FA-89A6-8A231A4E3013_4_5005_c.jpeg`, "uid1_img3.jpg"],
                     ["uid2_img1.png", "uid2_img2.png", "uid2_img3.png"],
                     ["uid3_img1.jpg", "uid3_img2.jpg", "uid3_img3.jpg"],
                     ["uid4_img1.jpg", "uid4_img2.jpg", "uid4_img3.jpg"]
@@ -147,12 +151,6 @@
                 dot.addEventListener("click", () => showSlide(index, i));
                 dotsContainer.appendChild(dot);
             }
-        }
-
-        let slideIndexes = [0, 0, 0, 0];
-
-        function moveSlide(carouselIndex, n) {
-            showSlide(carouselIndex, slideIndexes[carouselIndex] + n);
         }
 
         function showSlide(carouselIndex, n) {
