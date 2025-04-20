@@ -35,17 +35,22 @@ if(isset($_POST["submit"])) {
   }
 }
 
+echo "point 4.5 ";
+
 // Check if file already exists
 if (file_exists($target_file)) {
   echo "Sorry, file already exists.";
   $uploadOk = 0;
 }
+echo "point 4.6 ";
 
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 5000000) {
   echo "Sorry, your file is too large.";
   $uploadOk = 0;
 }
+
+echo "point 4.7 ";
 
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
