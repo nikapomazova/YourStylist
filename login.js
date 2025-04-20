@@ -7,8 +7,8 @@ const password = document.getElementById("pass");
 
 email.addEventListener("input", changeButton);
 password.addEventListener("input", changeButton);
-const emailV = email.value.trim();
-const passwordV = password.value.trim();
+var emailV = email.value.trim();
+var passwordV = password.value.trim();
 
 function changeButton() {
     emailV = email.value.trim();
