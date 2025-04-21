@@ -1,4 +1,5 @@
-import { doc, collection, query, where, getDocs, updateDoc } from "./firebaseInitializing.js";
+import pkg from './firebaseInitializing.js';
+const { doc, collection, query, where, getDocs, updateDoc } = pkg;
 import OpenAI from "openai";
 const client = new OpenAI();
 
