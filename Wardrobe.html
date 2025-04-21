@@ -58,6 +58,7 @@
             width: calc(24vw - 10px);
             height: auto;
             margin: 3vh;
+            transition: transform 0.3s ease; /* for smooth transition */
         }
 
         /* for the image itself */
@@ -65,19 +66,18 @@
             width: 100%;
             height: auto;
             border-radius: 1vh;
-            transition: transform 0.3s ease; /* for smooth transition */
         }
 
         /* for the overlay */
         .image-overlay {
             position: absolute;
-            top: -0.05;
-            left: -0.05;
-            right: 0.05;
-            bottom: 0.05;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background-color: rgba(255, 255, 255, 0.7); /* white with 70% opacity */
             color: #000;
-            font-size: 1.2vh;
+            font-size: 5vh;
             display: none;
             justify-content: center;
             align-items: center;
@@ -86,7 +86,7 @@
             box-sizing: border-box;
         }
 
-        .image-item:hover img {
+        .image-item:hover {
             transform: scale(1.05);
         }
 
