@@ -148,12 +148,13 @@
                         // const selectedImageIds = data.result; //expecting: ["img1.jpg", "img2.jpg", "img3.jpg"]
 
                         let selectedImageIds = data.result;
+                        console.log("AI response: " + selectedImageIds);
 
                         if (typeof selectedImageIds === "string") {
                             try {
                                 selectedImageIds = JSON.parse(selectedImageIds);
                             } catch (e) {
-                                console.error("AI returned invalid JSON string: ", selectedImageIds + ". Error: " + error);
+                                console.log("AI returned invalid JSON string: ", selectedImageIds + ". Error: " + e);
                                 loadingText.textContent = "Error: AI gave bad output. Please try again!";
                                 return;
                             }
