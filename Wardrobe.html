@@ -80,6 +80,7 @@
 
     <script type="module">
         import { auth, onAuthStateChanged, doc, db, collection, addDoc } from "./firebaseInitializing.js?v1.0.0";
+        import { describePic } from "./chatgpt.mjs?v1.0.0";
 
         let uid = null;
         const imageContainer = document.getElementById("imageContainer");
@@ -120,6 +121,7 @@
                 await addDoc(collection(db, "users", uid, "images"), {
                     name: fileName
                 });
+                await describePic(db, uid, fileName);
                 uploadForm.submit(); //when files are submitted submit the form automatically
             }
         });
