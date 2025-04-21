@@ -1,4 +1,4 @@
-const OpenAI = require("openai");
+import { OpenAI } from "https://cdn.jsdelivr.net/npm/openai@latest/dist/openai.browser.min.js";
 const client = new OpenAI();
 
 var response;
