@@ -80,7 +80,6 @@
 
     <script type="module">
         import { auth, onAuthStateChanged, doc, db, collection, addDoc } from "./firebaseInitializing.js?v1.0.0";
-        import { describePic } from "./chatgpt.mjs?v1.0.0";
 
         let uid = null;
         const imageContainer = document.getElementById("imageContainer");
@@ -107,26 +106,14 @@
             }
         });
 
-        const fileUploaded = document.getElementById("fileToUpload");
         const addPicButton = document.getElementById("addPic");
         const uploadForm = document.getElementById("uploadForm");
 
         addPicButton.addEventListener("click", () => {
             fileUploaded.click();
         });
-
-        fileUploaded.addEventListener("change", async () => {
-            if (fileUploaded.files.length > 0) {
-                const fileName = fileUploaded.files[0].name;
-                const fileDescription = await describePic(db, uid, fileName);
-                await addDoc(collection(db, "users", uid, "images"), {
-                    name: fileName,
-                    description: fileDescription
-                });
-
-                uploadForm.submit(); //when files are submitted submit the form automatically
-            }
-        });
+        
+        uploadForm.submit(); //when files are submitted submit the form automatically
 
     </script>
 
