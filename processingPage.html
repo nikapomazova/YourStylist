@@ -29,36 +29,40 @@
         });
 
         async function processImage() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const fileName = urlParams.get('file');
-
-            let fileDescription = "Clothes description from ai";
-
-            let prompt = "Describe this piece of clothing in 1 sentence"
-            const imageUrl = `https://yourstylist.stereopi.com/uploads/${uid}/${fileName}`;
-
             try {
-                const response = await fetch('https://yourstylist.stereopi.com:3000/openai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        image: imageUrl,
-                    }),
+                const urlParams = new URLSearchParams(window.location.search);
+                const fileName = urlParams.get('file');
+
+                let fileDescription = "Clothes description from ai";
+
+                let prompt = "Describe this piece of clothing in 1 sentence"
+                const imageUrl = `https://yourstylist.stereopi.com/uploads/${uid}/${fileName}`;
+
+                try {
+                    const response = await fetch('https://yourstylist.stereopi.com:3000/openai', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            prompt: prompt,
+                            image: imageUrl,
+                        }),
+                    });
+                    const data = await response.json();
+                    fileDescription = data.choices[0].message.content; // Use the AI response
+                    console.log("AI response: " + fileDescription);
+                } catch (error) {
+                    console.error('Error: ', error);
+                }
+
+                await addDoc(collection(db, "users", uid, "images"), {
+                    name: fileName,
+                    description: fileDescription
                 });
-                const data = await response.json();
-                fileDescription = data.choices[0].message.content; // Use the AI response
-                console.log("AI response: " + fileDescription);
+
+                window.location.href = "/Wardrobe.html";
             } catch (error) {
-                console.error('Error: ', error);
+                console.log("Error while loading: " + error);
             }
-
-            await addDoc(collection(db, "users", uid, "images"), {
-                name: fileName,
-                description: fileDescription
-            });
-
-            window.location.href = "/Wardrobe.html";
         }
 
         processImage();
