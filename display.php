@@ -1,17 +1,17 @@
 <?php
-$uid = $_GET['ufolder']; // Get user ID (folder name)
+$uid = $_GET['ufolder'];
+$dir = "uploads/$uid/";
 
-$dir = "uploads/$uid/";  // Directory with images
-
-// Get all image files with specific extensions (jpg, jpeg, png, gif)
+// Get image files
 $images = glob($dir . "*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}", GLOB_BRACE);
 
-if (count($images) > 0) {
-    // Loop through the images and display them
-    foreach ($images as $image) {
-        echo '<img src="' . $image . '" class="rounded-image">';  // Display each image
-    }
-} else {
-    echo "No images found.";
+// Convert full paths to just filenames
+$imageFiles = [];
+
+foreach ($images as $image) {
+    $imageFiles[] = basename($image); // strips path, leaves "img1.jpg"
 }
+
+header('Content-Type: application/json');
+echo json_encode($imageFiles);
 ?>
