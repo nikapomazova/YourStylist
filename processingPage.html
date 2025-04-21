@@ -54,16 +54,17 @@
                     // fileDescription = data.choices?.[0]?.message?.content; // Use the AI response
                     // fileDescription = response.output_text; // Use the AI response
                     console.log("AI response (parsed?): " + fileDescription);
+
+                    await setDoc(doc(db, "users", uid, "images", fileName), {
+                        name: fileName,
+                        description: fileDescription
+                    });
+
+                    window.location.href = "/Wardrobe.html";
+
                 } catch (error) {
                     console.error('Error: ', error);
                 }
-
-                await setDoc(doc(db, "users", uid, "images", fileName), {
-                    name: fileName,
-                    description: fileDescription
-                });
-
-                window.location.href = "/Wardrobe.html";
             } catch (error) {
                 console.log("Error while loading: " + error);
             }
