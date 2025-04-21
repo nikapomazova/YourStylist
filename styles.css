@@ -253,23 +253,21 @@ h2 {
   }
 
   .done-button {
-    background: transparent;
-    border: none;
+    font-family: var(--main-font);
     cursor: pointer;
-    outline: none;
-    position: static;
-    top: 190vh;
-    margin-bottom: 20vh;
-}
-
-.done-button img {
-    width: 20vw; 
-    height: auto;
-    max-width: 345px; 
+    padding: 1.5vh 1.5vw;
+    background-color: #772c33;
+    color: white;
+    border-radius: 2vh;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 3vh;
+    width: 10vw;
+    height: 7vh;
     transition: transform 0.3s ease-in-out;
 }
 
-.done-button:hover img {
+.done-button:hover {
     transform: scale(1.1);
 }
 
