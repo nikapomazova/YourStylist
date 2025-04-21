@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+const OpenAI = require("openai");
 const client = new OpenAI();
 
 var response;
