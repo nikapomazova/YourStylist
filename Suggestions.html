@@ -124,9 +124,18 @@
                         const userDocRef = doc(db, "users", uid);
                         const userDocSnap = await getDoc(userDocRef);
                         let quizAnswers = [];
+
                         if (userDocSnap.exists()) {
-                            quizAnswers = userDocSnap.data().quizAnswers || [];
+                            const rawAnswers = userDocSnap.data().quizAnswers;
+                            if (Array.isArray(rawAnswers)) {
+                                quizAnswers = rawAnswers;
+                            } else if (typeof rawAnswers === "object") {
+                                quizAnswers = Object.values(rawAnswers);
+                            } else {
+                                quizAnswers = []; // fallback
+                            }
                         }
+
                         const imageDocsSnapshot = await getDocs(collection(db, "users", uid, "images"));
                         const imageDescriptions = [];
 
