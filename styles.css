@@ -369,9 +369,9 @@ button, input, textarea {
 /*pictures*/
 
 .rounded-image {
-    width: calc(25% - 10px);
+    width: calc(24% - 10px);
     height: auto;
-    border-radius: 20%;
+    border-radius: 10%;
     object-fit: cover;
     margin: 1vh;
 }
