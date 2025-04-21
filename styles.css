@@ -369,7 +369,7 @@ button, input, textarea {
 /*pictures*/
 
 .rounded-image {
-    width: calc(24% - 10px);
+    width: calc(20% - 10px);
     height: auto;
     border-radius: 10%;
     object-fit: cover;
