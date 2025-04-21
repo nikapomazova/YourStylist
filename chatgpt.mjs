@@ -1,5 +1,4 @@
-import { doc, collection, query, where, getDocs, updateDoc } from "./firebaseInitializing.js?v1.0.0";
-import fs from "fs";
+import { doc, collection, query, where, getDocs, updateDoc } from "./firebaseInitializing.js";
 import OpenAI from "openai";
 const client = new OpenAI();
 
@@ -10,8 +9,6 @@ const client = new OpenAI();
 
 export async function describePic(db, uid, fileName) {
 
-    const base64Image = fs.readFileSync(`/var/www/html/uploads/${uid}/${fileName}`, "base64");
-
     const descriptionResponse = await client.responses.create({
         model: "o4-mini",
         input: [{
@@ -20,7 +17,7 @@ export async function describePic(db, uid, fileName) {
                 { type: "input_text", text: "Describe the object of clothing in this photo in 1 sentence" },
                 {
                     type: "input_image",
-                    image_url: `data:image/jpeg;base64,${base64Image}`,
+                    image_url: `yourstylist.stereopi.com/uploads/${uid}/${fileName}`,
                 },
             ],
         }],
