@@ -1,4 +1,4 @@
-import { OpenAI } from "https://cdn.jsdelivr.net/npm/openai@latest/dist/openai.browser.min.js";
+import OpenAI from "openai";
 const client = new OpenAI();
 
 var response;
