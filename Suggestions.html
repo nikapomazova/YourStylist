@@ -131,7 +131,7 @@
                             });
                         });
 
-                        const prompt = `You are a fashion stylist. Here is a list of clothing items with descriptions and IDs. Choose exactly 3 items that go well together to form a stylish outfit. Return only their IDs in an array.
+                        const prompt = `You are a fashion stylist. Here is a list of clothing items with descriptions and IDs. Choose exactly 3 items that go well together to form a stylish outfit. Return only a JSON array with the 3 selected IDs — like this: ["img1.jpg", "img2.jpg", "img3.jpg"]. Do not include any explanation. Only output the array.
 
                         Items:
                         ${imageDescriptions.map(item => `- ${item.id}: ${item.description}`).join('\n')}
@@ -164,9 +164,11 @@
 
                         //for making carousel!
 
+                        multiCarouselContainer.innerHTML = "";
+
                         const outfitImages = selectedImageIds.map(id => `https://yourstylist.stereopi.com/uploads/${uid}/${id}`);
 
-                        loadingText.style.display = "none"; // 👈 Hide once done
+                        loadingText.style.display = "none"; //hide once done
 
                         createCarousel(outfitImages, 0);
                         showSlide(0, 0);
