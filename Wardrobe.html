@@ -49,6 +49,61 @@
             align-items: left;
         }
 
+        /*for images*/
+
+        .image-item {
+            position: relative;
+            display: inline-block;
+            width: 10vh;
+            height: 10vh;
+            margin: 3vh;
+        }
+
+        /* for the image itself */
+        .image-item img {
+            width: 100%;
+            height: 100%;
+            border-radius: 1vh;
+            transition: transform 0.3s ease; /* for smooth transition */
+        }
+
+        /* for the overlay */
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.7); /* white with 70% opacity */
+            color: #000;
+            font-size: 1.2vh;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            border-radius: 1vh;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .image-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .image-item:hover .image-overlay {
+            display: flex;
+        }
+
+        /* for fade in */
+        
+        .image-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-item:hover .image-overlay {
+            opacity: 1;
+        }
+
     </style>
 
   </head>
@@ -78,32 +133,65 @@
 
     <div id="imageContainer"></div>
 
-    <div id="forChatgptLogic"></div>
-
     <script type="module">
-        import { auth, onAuthStateChanged, doc, db, collection, addDoc } from "./firebaseInitializing.js?v1.0.0";
+        import { auth, onAuthStateChanged, doc, db, collection, addDoc, getDocs } from "./firebaseInitializing.js?v1.0.0";
 
         let uid = null;
         const imageContainer = document.getElementById("imageContainer");
         const fileUploaded = document.getElementById("fileToUpload");
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 uid = user.uid;
                 document.getElementById("uidDisplay").value = uid;
+
+                const imagesRef = collection(db, "users", uid, "images");
+                const imageDocs = await getDocs(imagesRef);
+
+                const imageDescriptionsMap = {};
+                imageDocs.forEach(doc => {
+                    const data = doc.data();
+                    if (data.name && data.description) {
+                        imageDescriptionsMap[data.name] = data.description;
+                    }
+                });
+
                 const form = document.getElementById("uploadForm");
                 form.action = `upload.php?ufolder=${uid}`;
                 // console.log(`upload.php?ufolder=${uid}`);
                 // console.log("User is signed in. UID:", uid);
 
                 fetch(`display.php?ufolder=${uid}`) //fetching images from the PHP script
-                .then(response => response.text())
-                .then(data => {
-                    imageContainer.innerHTML = data;  //putting the images into the container, ie the div
-                })
-                .catch(error => {
-                    console.error("Error fetching images:", error);
-                });
+                    .then(response => response.json())
+                    .then(files => {
+                        imageContainer.innerHTML = ""; // clear before insert
+                        files.forEach(filename => {
+                            const container = document.createElement("div");
+                            container.className = "image-item";
+
+                            const img = document.createElement("img");
+                            img.src = `uploads/${uid}/${filename}`;
+                            img.alt = filename;
+
+                            const overlay = document.createElement("div");
+                            overlay.className = "image-overlay";
+                            overlay.textContent = imageDescriptionsMap[filename] || "No description";
+
+                            container.appendChild(img);
+                            container.appendChild(overlay);
+
+                            // container.addEventListener("mouseenter", () => {
+                            //     overlay.style.display = "flex";
+                            //     img.style.transform = "scale(1.05)";
+                            // });
+                            // container.addEventListener("mouseleave", () => {
+                            //     overlay.style.display = "none";
+                            //     img.style.transform = "scale(1)";
+                            // });
+
+                            imageContainer.appendChild(container);
+                        });
+                    });
             } else {
                 console.log("No user is signed in.");
             }
