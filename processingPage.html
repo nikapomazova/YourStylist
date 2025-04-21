@@ -48,6 +48,7 @@
                             image: imageUrl,
                         }),
                     });
+                    console.log("Ai has answered! Answer: " + response);
                     const data = await response.json();
                     fileDescription = data.choices[0].message.content; // Use the AI response
                     console.log("AI response: " + fileDescription);
