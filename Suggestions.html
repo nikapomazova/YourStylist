@@ -83,7 +83,7 @@
 
         //FOR THE UID FETCHING
 
-        import { auth, onAuthStateChanged, getDocs, collection, db } from "./firebaseInitializing.js";
+        import { auth, onAuthStateChanged, getDocs, collection, db, getDoc, doc } from "./firebaseInitializing.js";
 
         let slideIndexes = [0, 0, 0, 0];
 
@@ -120,6 +120,13 @@
                     loadingText.textContent = "Generating your outfit... Please wait!";
 
                     try {
+
+                        const userDocRef = doc(db, "users", uid);
+                        const userDocSnap = await getDoc(userDocRef);
+                        let quizAnswers = [];
+                        if (userDocSnap.exists()) {
+                            quizAnswers = userDocSnap.data().quizAnswers || [];
+                        }
                         const imageDocsSnapshot = await getDocs(collection(db, "users", uid, "images"));
                         const imageDescriptions = [];
 
@@ -131,7 +138,7 @@
                             });
                         });
 
-                        const prompt = `You are a fashion stylist. Here is a list of clothing items with descriptions and IDs. Choose exactly 3 items that go well together to form a stylish outfit. Return only a JSON array with the 3 selected IDs — like this: ["img1.jpg", "img2.jpg", "img3.jpg"]. Do not include any explanation. Only output the array.
+                        const prompt = `You are a fashion stylist. The user's style preferences are: ${quizAnswers.join(", ")} colours. Here is a list of clothing items with descriptions and IDs. Choose exactly 3 items that go well together to form a stylish outfit. Return only a JSON array with the 3 selected IDs — like this: ["img1.jpg", "img2.jpg", "img3.jpg"]. Do not include any explanation. Only output the array.
 
                         Items:
                         ${imageDescriptions.map(item => `- ${item.id}: ${item.description}`).join('\n')}

@@ -33,8 +33,8 @@ const quizContainer = document.getElementById("quiz-container");
         },
         {
             question: "Which color palette do you usually wear?",
-            answers: [{text: "Neutrals"},
-            {text: "Pastels"},
+            answers: [{text: "Neutral"},
+            {text: "Pastel"},
             {text: "Warm"},
             {text: "Bold & Bright"}
             ]
