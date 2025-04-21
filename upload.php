@@ -79,6 +79,7 @@ if ($uploadOk == 0) {
     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
     echo '<script>
       const script = document.createElement("script");
+      script.type = "module";
       script.src = "response.js";
       document.body.appendChild(script);
     </script>';
