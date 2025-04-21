@@ -79,7 +79,7 @@
     <div id="imageContainer"></div>
 
     <script type="module">
-        import { auth, onAuthStateChanged } from "./firebaseInitializing.js";
+        import { auth, onAuthStateChanged, doc, db, collection, addDoc } from "./firebaseInitializing.js";
 
         let uid = null;
         const imageContainer = document.getElementById("imageContainer");
@@ -90,8 +90,8 @@
                 document.getElementById("uidDisplay").value = uid;
                 const form = document.getElementById("uploadForm");
                 form.action = `upload.php?ufolder=${uid}`;
-                console.log(`upload.php?ufolder=${uid}`);
-                console.log("User is signed in. UID:", uid);
+                // console.log(`upload.php?ufolder=${uid}`);
+                // console.log("User is signed in. UID:", uid);
 
                 fetch(`display.php?ufolder=${uid}`) //fetching images from the PHP script
                 .then(response => response.text())
@@ -114,8 +114,12 @@
             fileUploaded.click();
         });
 
-        fileUploaded.addEventListener("change", () => {
+        fileUploaded.addEventListener("change", async () => {
             if (fileUploaded.files.length > 0) {
+                const fileName = fileUploaded.files[0].name;
+                await addDoc(collection(db, "users", uid, "images"), {
+                    name: fileName
+                });
                 uploadForm.submit(); //when files are submitted submit the form automatically
             }
         });
@@ -123,10 +127,6 @@
     </script>
 
     <h3>Made by: Nika</h3>
-
-    <script> //for displaying pictures
-
-    </script>
 
   </body>
 
