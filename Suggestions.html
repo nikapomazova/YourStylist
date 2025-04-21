@@ -138,7 +138,7 @@
                             }
                         }
 
-                        document.getElementById("preferences").value = "The outfit will be generated based on uploaded clothes and these parameters from the quiz: " + quizAnswers;
+                        document.getElementById("preferences").textContent = "The outfit will be generated based on uploaded clothes and these parameters from the quiz: " + quizAnswers;
 
                         const imageDocsSnapshot = await getDocs(collection(db, "users", uid, "images"));
                         const imageDescriptions = [];
