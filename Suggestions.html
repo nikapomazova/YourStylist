@@ -145,7 +145,19 @@
                         });
 
                         const data = await response.json();
-                        const selectedImageIds = data.result; //expecting: ["img1.jpg", "img2.jpg", "img3.jpg"]
+                        // const selectedImageIds = data.result; //expecting: ["img1.jpg", "img2.jpg", "img3.jpg"]
+
+                        let selectedImageIds = data.result;
+
+                        if (typeof selectedImageIds === "string") {
+                            try {
+                                selectedImageIds = JSON.parse(selectedImageIds);
+                            } catch (e) {
+                                console.error("AI returned invalid JSON string: ", selectedImageIds + ". Error: " + error);
+                                loadingText.textContent = "Error: AI gave bad output. Please try again!";
+                                return;
+                            }
+                        }
 
                         console.log("The selected images: " + selectedImageIds);
 
