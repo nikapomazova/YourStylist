@@ -77,6 +77,8 @@
         Generating your outfit... Please wait!
     </p>
 
+    <h3 id="preferences"></h3>
+
     <div id="multiCarouselContainer"></div>
 
     <script type="module">
@@ -135,6 +137,8 @@
                                 quizAnswers = []; // fallback
                             }
                         }
+
+                        document.getElementById("preferences").value = "The outfit will be generated based on uploaded clothes and these parameters from the quiz: " + quizAnswers;
 
                         const imageDocsSnapshot = await getDocs(collection(db, "users", uid, "images"));
                         const imageDescriptions = [];
