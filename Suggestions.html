@@ -113,6 +113,23 @@
 
                 const loadingText = document.getElementById("loadingText");
 
+                const userDocRef = doc(db, "users", uid);
+                const userDocSnap = await getDoc(userDocRef);
+                let quizAnswers = [];
+
+                if (userDocSnap.exists()) {
+                    const rawAnswers = userDocSnap.data().quizAnswers;
+                    if (Array.isArray(rawAnswers)) {
+                        quizAnswers = rawAnswers;
+                    } else if (typeof rawAnswers === "object") {
+                        quizAnswers = Object.values(rawAnswers);
+                    } else {
+                        quizAnswers = []; // fallback
+                    }
+                }
+
+                document.getElementById("preferences").textContent = "The outfit will be generated based on uploaded clothes and these parameters from the quiz: " + quizAnswers;
+
                 //for creating outfit!
 
                 document.getElementById("generate").addEventListener("click", async () => {
@@ -122,23 +139,6 @@
                     loadingText.textContent = "Generating your outfit... Please wait!";
 
                     try {
-
-                        const userDocRef = doc(db, "users", uid);
-                        const userDocSnap = await getDoc(userDocRef);
-                        let quizAnswers = [];
-
-                        if (userDocSnap.exists()) {
-                            const rawAnswers = userDocSnap.data().quizAnswers;
-                            if (Array.isArray(rawAnswers)) {
-                                quizAnswers = rawAnswers;
-                            } else if (typeof rawAnswers === "object") {
-                                quizAnswers = Object.values(rawAnswers);
-                            } else {
-                                quizAnswers = []; // fallback
-                            }
-                        }
-
-                        document.getElementById("preferences").textContent = "The outfit will be generated based on uploaded clothes and these parameters from the quiz: " + quizAnswers;
 
                         const imageDocsSnapshot = await getDocs(collection(db, "users", uid, "images"));
                         const imageDescriptions = [];
