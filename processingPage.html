@@ -10,7 +10,7 @@
 
   <body>
 
-    <h1 class="charter">We are processing your requst right now...</h1>
+    <h1 class="charter">We are processing your request right now...</h1>
 
     <script type="module" src="firebaseInitializing.js"></script>
 
@@ -39,7 +39,7 @@
                 const imageUrl = `https://yourstylist.stereopi.com/uploads/${uid}/${fileName}`;
 
                 try {
-                    const response = await fetch('https://yourstylist.stereopi.com:3000/openai', {
+                    const response = await fetch('/openai', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
