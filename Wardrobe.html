@@ -83,6 +83,7 @@
 
         let uid = null;
         const imageContainer = document.getElementById("imageContainer");
+        const fileUploaded = document.getElementById("fileToUpload");
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -112,8 +113,12 @@
         addPicButton.addEventListener("click", () => {
             fileUploaded.click();
         });
-        
-        uploadForm.submit(); //when files are submitted submit the form automatically
+
+        fileUploaded.addEventListener("change", async () => {
+            if (fileUploaded.files.length > 0) {
+                uploadForm.submit(); //when files are submitted submit the form automatically
+            }
+        });
 
     </script>
 
