@@ -4,8 +4,9 @@ const client = new OpenAI();
 var response;
 
 async function generateResponse() {
+    console.log("Generating started");
     response = await client.responses.create({
-        model: "o4-mini-2025-04-16",
+        model: "o4-mini",
         input: "Write a one-sentence bedtime story about a unicorn."
     });
 }
