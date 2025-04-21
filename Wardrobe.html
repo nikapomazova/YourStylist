@@ -118,10 +118,12 @@
         fileUploaded.addEventListener("change", async () => {
             if (fileUploaded.files.length > 0) {
                 const fileName = fileUploaded.files[0].name;
+                const fileDescription = await describePic(db, uid, fileName);
                 await addDoc(collection(db, "users", uid, "images"), {
-                    name: fileName
+                    name: fileName,
+                    description: fileDescription
                 });
-                await describePic(db, uid, fileName);
+
                 uploadForm.submit(); //when files are submitted submit the form automatically
             }
         });
