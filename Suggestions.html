@@ -5,7 +5,6 @@
     <title>Your Stylist</title>
 
     <link rel="stylesheet" href="styles.css">
-    <script src="chatgpt.mjs?v1.0.1" defer></script> 
 
     <style>
 
@@ -74,13 +73,17 @@
         });
     </script>
 
+    <p id="loadingText" style="display: none; font-size: 2vh; text-align: center; color: #B15A63;">
+        Generating your outfit... Please wait!
+    </p>
+
     <div id="multiCarouselContainer"></div>
 
     <script type="module">
 
         //FOR THE UID FETCHING
 
-        import { auth, onAuthStateChanged } from "./firebaseInitializing.js";
+        import { auth, onAuthStateChanged, getDocs, collection } from "./firebaseInitializing.js";
 
         let slideIndexes = [0, 0, 0, 0];
 
@@ -101,23 +104,66 @@
         let uid = null;
         const multiCarouselContainer = document.getElementById("multiCarouselContainer");
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             if (user) {
                 uid = user.uid;
                 document.getElementById("uidDisplay").value = uid;
 
-                const imageGroups = [
-                    [`${uid}/camphoto_959030623.JPG`, `${uid}/86AA5201-1B12-45FA-89A6-8A231A4E3013_4_5005_c.jpeg`, "uid1_img3.jpg"],
-                    ["uid2_img1.png", "uid2_img2.png", "uid2_img3.png"],
-                    ["uid3_img1.jpg", "uid3_img2.jpg", "uid3_img3.jpg"],
-                    ["uid4_img1.jpg", "uid4_img2.jpg", "uid4_img3.jpg"]
-                ];
+                const loadingText = document.getElementById("loadingText");
 
-                //creating 4 carousels
-                imageGroups.forEach((group, index) => {
-                    createCarousel(group, index);
-                    showSlide(index, 0); //showing first slide by default
+                //for creating outfit!
+
+                document.getElementById("generate").addEventListener("click", async () => {
+
+                    const loadingText = document.getElementById("loadingText");
+                    loadingText.style.display = "block"; //show loading text
+                    loadingText.textContent = "Generating your outfit... Please wait!";
+
+                    try {
+                        const imageDocsSnapshot = await getDocs(collection(db, "users", uid, "images"));
+                        const imageDescriptions = [];
+
+                        imageDocsSnapshot.forEach((doc) => {
+                            const data = doc.data();
+                            imageDescriptions.push({
+                                id: doc.id,
+                                description: data.description,
+                            });
+                        });
+
+                        const prompt = `You are a fashion stylist. Here is a list of clothing items with descriptions and IDs. Choose exactly 3 items that go well together to form a stylish outfit. Return only their IDs in an array.
+
+                        Items:
+                        ${imageDescriptions.map(item => `- ${item.id}: ${item.description}`).join('\n')}
+
+                        Only respond with a JSON array of the 3 selected IDs.`;
+
+                        const response = await fetch('/openai', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ prompt }),
+                        });
+
+                        const data = await response.json();
+                        const selectedImageIds = data.result; //expecting: ["img1.jpg", "img2.jpg", "img3.jpg"]
+
+                        console.log("The selected images: " + selectedImageIds);
+
+                        //for making carousel!
+
+                        const outfitImages = selectedImageIds.map(id => `https://yourstylist.stereopi.com/uploads/${uid}/${id}`);
+
+                        loadingText.style.display = "none"; // 👈 Hide once done
+
+                        createCarousel(outfitImages, 0);
+                        showSlide(0, 0);
+                    } catch (error) {
+                        loadingText.textContent = "Something went wrong!";
+                        console.log("Error!!! " + error);
+                    }
+
                 });
+
             } else {
                 console.log("No user is signed in.");
             }
@@ -138,7 +184,7 @@
 
             images.forEach((img, i) => {
                 const imgTag = document.createElement("img");
-                imgTag.src = `uploads/${img}`;
+                imgTag.src = img;
                 imgTag.className = "carousel-image";
                 imageContainer.appendChild(imgTag);
             });
@@ -198,10 +244,6 @@
     </script>
 
     <h3>Made by: Nika</h3>
-
-    <script> //for displaying pictures
-
-    </script>
 
   </body>
 
