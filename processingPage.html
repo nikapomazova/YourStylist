@@ -16,7 +16,7 @@
 
     <script type="module">
         
-        import { auth, onAuthStateChanged, doc, db, collection, addDoc } from "./firebaseInitializing.js?v1.0.0";
+        import { auth, onAuthStateChanged, doc, db, collection, addDoc, setDoc } from "./firebaseInitializing.js?v1.0.0";
 
         let uid = null;
 
@@ -50,14 +50,15 @@
                     });
                     console.log("Ai has answered! Response object: ", response);
                     const data = await response.json();
-                    fileDescription = data.choices?.[0]?.message?.content; // Use the AI response
+                    fileDescription = data.result;
+                    // fileDescription = data.choices?.[0]?.message?.content; // Use the AI response
                     // fileDescription = response.output_text; // Use the AI response
                     console.log("AI response (parsed?): " + fileDescription);
                 } catch (error) {
                     console.error('Error: ', error);
                 }
 
-                await addDoc(collection(db, "users", uid, "images", fileName), {
+                await setDoc(doc(db, "users", uid, "images", fileName), {
                     name: fileName,
                     description: fileDescription
                 });
