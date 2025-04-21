@@ -1,0 +1,47 @@
+{
+  "name": "html",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chatgpt.js",
+  "dependencies": {
+    "ansi-regex": "^5.0.1",
+    "ansi-styles": "^4.3.0",
+    "cliui": "^8.0.1",
+    "color-convert": "^2.0.1",
+    "color-name": "^1.1.4",
+    "emoji-regex": "^8.0.0",
+    "escalade": "^3.2.0",
+    "faye-websocket": "^0.11.4",
+    "get-caller-file": "^2.0.5",
+    "http-parser-js": "^0.5.10",
+    "idb": "^7.1.1",
+    "is-fullwidth-code-point": "^3.0.0",
+    "lodash.camelcase": "^4.3.0",
+    "long": "^5.3.2",
+    "openai": "^4.95.1",
+    "require-directory": "^2.1.1",
+    "safe-buffer": "^5.2.1",
+    "string-width": "^4.2.3",
+    "strip-ansi": "^6.0.1",
+    "tslib": "^2.8.1",
+    "undici-types": "^6.21.0",
+    "websocket-extensions": "^0.1.4",
+    "wrap-ansi": "^7.0.0",
+    "y18n": "^5.0.8",
+    "yargs-parser": "^21.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nikapomazova/YourStylist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nikapomazova/YourStylist/issues"
+  },
+  "homepage": "https://github.com/nikapomazova/YourStylist#readme"
+}
