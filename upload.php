@@ -62,7 +62,8 @@ echo "point 4.7 ";
 
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-&& $imageFileType != "gif" ) {
+&& $imageFileType != "gif" && $imageFileType != "JPG" && $imageFileType != "PNG" && $imageFileType != "JPEG"
+&& $imageFileType != "GIF") {
   echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
   $uploadOk = 0;
 }
@@ -75,6 +76,10 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
   echo "point 6 ";
+  $errorCode = $_FILES["fileToUpload"]["error"];
+  if ($errorCode !== 0) {
+      echo "🚨 Upload error code: $errorCode";
+  }
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
 
