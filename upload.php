@@ -53,7 +53,7 @@ if (file_exists($target_file)) {
 echo "point 4.6 ";
 
 // Check file size
-if ($_FILES["fileToUpload"]["size"] > 5000000) {
+if ($_FILES["fileToUpload"]["size"] > 10000000) {
   echo "Sorry, your file is too large.";
   $uploadOk = 0;
 }
